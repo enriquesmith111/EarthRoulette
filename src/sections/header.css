@@ -1,4 +1,6 @@
 .header {
+    background-color: var(--background-color);
+    transition: background-color 0.25s ease-in-out;
     z-index: 3;
     margin: 0vh 0vw 0vh 0vw;
     display: flex;
@@ -6,6 +8,7 @@
     position: sticky;
     top: 0vh;
     height: 8vh;
+    
 }
 @media (orientation: portrait) {
     .header {
@@ -21,4 +24,68 @@
     .header {
         height: 10vh;
     }
+}
+
+.header img {
+    margin-left: 1rem;
+}
+
+
+.toggle-container {
+    margin-top: 0rem;
+    z-index: 3;
+    position: absolute;
+    right: 3.5em;
+}
+
+@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+    .toggle-container {
+        margin-top: -0.3rem;
+        right: 1rem
+    }
+}
+
+@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    .toggle-container {
+        margin-top: -0.3rem;
+        right: 2rem;
+    }
+}
+
+.toggle {
+    visibility: hidden;
+}
+
+.toggle + label {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--text-color);
+    font-family: "Roboto Mono", monospace;
+}
+
+.toggle + label::before {
+    content: '';
+    height: 1em;
+    width: 2em;
+    border-radius: 2em;
+    background-color: var(--light-contrast-color);
+    margin-right: 0.5em;
+    transition: background-color 250ms ease-in-out;
+}
+
+.toggle + label::after {
+    content: '';
+    height: 0.8em;
+    width: 0.8em;
+    border-radius: 1em;
+    background-color: var(--lighter-contrast-color);
+    position: absolute;
+    left: 0.2em;
+    transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.toggle:checked + label::after {
+    transform: translateX(100%);
 }
