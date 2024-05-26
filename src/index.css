@@ -1,13 +1,109 @@
+/* * {
+  border: red 1px dotted;
+} */
+
+:root {
+  --background-color: #b0cdd3;
+  --darker-contrast-color: #2d3250;
+  --dark-contrast-color: rgb(66, 71, 105);
+  --light-contrast-color: rgb(245, 154, 79);
+  --lighter-contrast-color: rgb(255, 203, 161);
+  --text-color: black;
+}
+
+
+[data-theme="dark"] {
+  --background-color: black;
+  --darker-contrast-color: #03aed2;
+  --dark-contrast-color: #68d2e8;
+  --light-contrast-color: #fdde55;
+  --lighter-contrast-color: #feefad;
+  --text-color: rgb(255, 255, 255);
+}
+
+
+html {
+  margin: 0%;
+}
+
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: var(--background-color);
+  margin: 0%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+} 
+@media (orientation: portrait) {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
 }
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: 4vw;
+  min-height: 100vh;
+}
+
+
+.container {
+  display: flex;
+}
+@media (orientation: portrait) {
+  .container {
+    margin-top: -20vh;
+    display: flex;
+    flex-direction: column;
+  }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+  .container {
+    margin-top: -30vh;
+    display: flex;
+  }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+  .container {
+    margin-top: -3
+    0vh;
+    display: flex;
+  }
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* @media (orientation: portrait) {
+  body {
+
+  }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+  body {
+
+  }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+  body {
+
+  }
+} */

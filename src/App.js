@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import CountrySection from './sections/CountrySection';
+import Header from './sections/Header';
+import HeroSection from './sections/HeroSection';
+import useLocalStorage from 'use-local-storage';
+
 
 function App() {
+  const preference = window.matchMedia("(prefers-color-scheme: dark)").matches
+  const [isLight, setIsLight] = useLocalStorage('isLight', preference)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" data-theme={isLight ? 'light' : 'dark'}>
+      <Header
+        isChecked={isLight}
+        handleChange={() => setIsLight(!isLight)} />
+      <HeroSection />
+      <CountrySection />
     </div>
   );
 }

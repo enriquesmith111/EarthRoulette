@@ -1,0 +1,94 @@
+.earth-animation {
+    display: flex;
+    position: relative;
+    width: 50%;
+    height: 30rem;
+}
+@media (orientation: portrait) {
+    .earth-animation {
+        height: 14rem;
+        width: 100%;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .earth-animation {
+        height: 15rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .earth-animation {
+        height: 15rem;
+    }
+}
+
+
+.hero-text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+@media (orientation: portrait) {
+    .hero-text {
+        width: 100%;
+        align-items: center;
+    }
+} 
+
+
+.hero-text h1 {
+    font-size: 80px;
+}
+@media (orientation: portrait) {
+    .hero-text h1 {
+        font-size: 40px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .hero-text h1 {
+        font-size: 50px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .hero-text h1 {
+        font-size: 50px;
+    }
+}
+
+
+.hero-text button {
+    height: 20px;
+}
+
+
+/* CSS */
+.hero-text button {
+    height: 2.5rem;
+    width: 6rem;
+    background-color: var(--light-contrast-color);
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.hero-text button:not(:disabled):hover {
+    outline: 0;
+    background: #f4e603;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.hero-text button:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+    }

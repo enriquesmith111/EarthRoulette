@@ -1,0 +1,24 @@
+.header {
+    z-index: 3;
+    margin: 0vh 0vw 0vh 0vw;
+    display: flex;
+    position: absolute;
+    position: sticky;
+    top: 0vh;
+    height: 8vh;
+}
+@media (orientation: portrait) {
+    .header {
+    height: 6vh;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .header {
+        height: 10vh;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .header {
+        height: 10vh;
+    }
+}
