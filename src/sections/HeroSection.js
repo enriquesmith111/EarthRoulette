@@ -22,7 +22,7 @@ export default function HeroSection() {
                     animationData={PlaneAnimation} /> */}
                 <div className='hero-text'>
                     <h1>Earth Roulette</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita non alias ut saepe iusto hic qui consequatur nostrum nemo similique.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et libero natus blanditiis tenetur laboriosam id sed ratione quia aspernatur, vero praesentium animi doloribus quidem recusandae nihil accusantium? Earum soluta, dicta libero totam doloremque facere nemo eveniet, maxime quod quis tempore repellendus, commodi facilis. Aut fuga asperiores ducimus animi facere eveniet.</p>
                     <button>Spin</button>
                 </div>
             </div>

@@ -8,6 +8,7 @@
   --dark-contrast-color: rgb(255, 203, 161);
   --light-contrast-color:  rgb(47, 57, 112);
   --lighter-contrast-color:  rgb(95, 103, 153);
+  --button-text-color: white;
   --text-color: black;
 }
 
@@ -18,7 +19,8 @@
   --dark-contrast-color: rgb(104, 210, 232);
   --light-contrast-color: rgb(225, 195, 62);
   --lighter-contrast-color: rgb(254, 239, 173);
-  --text-color: rgb(255, 255, 255);
+  --button-text-color: black;
+  --text-color: white;
 }
 
 
@@ -82,25 +84,23 @@ body {
 }
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
   .container {
-    margin-top: -3
-    0vh;
+    margin-top: -25vh;
     display: flex;
   }
 }
 
-p {
-  color: var(--text-color);
-}
-
 h1 {
   color: var(--light-contrast-color);
+  font-family: 'General Sans', sans-serif;
+  
+}
+
+p {
+  color: var(--text-color);
+  font-family: 'Gambetta', serif;
 }
 
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 /* @media (orientation: portrait) {
   body {

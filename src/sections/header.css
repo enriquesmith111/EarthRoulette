@@ -17,22 +17,42 @@
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
     .header {
-        height: 10vh;
+        height: 8vh;
+        margin-top: 5vh;
     }
 }
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
     .header {
-        height: 10vh;
+        height: 8vh;
+        margin-top: 5vh;
+
     }
 }
 
 .header img {
+    margin-left: 2rem;
+}
+@media (orientation: portrait) {
+    .header img {
     margin-left: 1rem;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .header img {
+        height: 2.5rem;
+        margin-top: -0.2rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .header img {
+        margin-top: 1rem;
+        margin-top: -0.2rem;
+    }
 }
 
 
 .toggle-container {
-    margin-top: 0rem;
+    margin-top: -0.5rem;
     z-index: 3;
     position: absolute;
     right: 3.5em;
@@ -41,13 +61,18 @@
 @media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
     .toggle-container {
         margin-top: -0.3rem;
-        right: 1rem
+        right: 1rem;
     }
 }
-
-@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
-    .toggle-container {
-        margin-top: -0.3rem;
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .toggle-container{
+        margin-top: -1rem;
+        right: 1rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .toggle-container{
+        margin-top: -1rem;
         right: 2rem;
     }
 }
