@@ -4,7 +4,7 @@
     z-index: 3;
     margin: 0vh 0vw 0vh 0vw;
     display: flex;
-    position: absolute;
+    position: fixed;
     position: sticky;
     top: 0vh;
     height: 8vh;
@@ -60,7 +60,7 @@
 
 @media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
     .toggle-container {
-        margin-top: -0.3rem;
+        margin-top: -0.6rem;
         right: 1rem;
     }
 }

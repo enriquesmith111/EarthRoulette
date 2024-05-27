@@ -1,0 +1,158 @@
+/* Left Section */
+.country-info {
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.country-image {
+    display: flex; /* Enable flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    overflow: hidden;
+    background-color: red;
+    border-radius: 5%;
+    height: 36rem;
+    width: 36rem;
+}
+@media (orientation: portrait) {
+    .country-image {
+        height: 20rem;
+        width: 100%;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-image {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-image {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+
+
+.country-image img {
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+}
+
+/* Right section */
+.text-weather-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.country-text {
+    height: 50%;
+}
+
+
+.country-text p {
+    margin: 1rem;
+}
+@media (orientation: portrait) {
+    .country-text p {
+        margin: 0.5rem;
+    }
+} 
+
+
+.weather-and-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.weather {
+    background-color: green;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    height: 12rem;
+    width: 24rem;
+}
+@media (orientation: portrait) {
+    .weather {
+        height: 8rem;
+        width: 16rem;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather {
+        height: 8rem;
+        width: 16rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather {
+        height: 8rem;
+        width: 16rem;
+    }
+}
+
+.weather-buttons {
+    margin: 1rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.weather-buttons button {
+    height: 4rem;
+    width: 16rem;
+    background-color: var(--light-contrast-color);
+    border-radius: 12px;
+    color: var(--button-text-color);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 24px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+@media (orientation: portrait) {
+    .weather-buttons button {
+        height: 2.5rem;
+        width: 8rem;
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-buttons button {
+        margin: 0rem;
+        height: 2.5rem;
+        width: 6rem;
+        font-size: 16px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-buttons button {
+        margin: 0rem;
+        height: 2.5rem;
+        width: 9rem;
+        font-size: 16px;
+    }
+}
+
+.weather-buttons button:not(:disabled):hover {
+    outline: 0;
+    background: #f4e603;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.weather-buttons button:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+    }
