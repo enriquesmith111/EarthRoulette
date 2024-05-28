@@ -1,8 +1,13 @@
 /* Left Section */
 .country-info {
-
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.country-info img {
+    height: 30px;
 }
 
 
@@ -11,7 +16,6 @@
     justify-content: center; /* Center horizontally */
     align-items: center;
     overflow: hidden;
-    background-color: red;
     border-radius: 5%;
     height: 36rem;
     width: 36rem;
@@ -147,7 +151,7 @@
 
 .weather-buttons button:not(:disabled):hover {
     outline: 0;
-    background: #f4e603;
+    background: var(--lighter-contrast-color);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
 

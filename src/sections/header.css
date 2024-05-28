@@ -1,14 +1,15 @@
 .header {
-    background-color: var(--background-color);
+    z-index: 0;
+    background-color: transparent;
+    background-blend-mode: exclusion;
     transition: background-color 0.25s ease-in-out;
-    z-index: 3;
     margin: 0vh 0vw 0vh 0vw;
     display: flex;
     position: fixed;
-    position: sticky;
+
     top: 0vh;
-    height: 8vh;
-    
+    height: 8vh; 
+    width: 100%; 
 }
 @media (orientation: portrait) {
     .header {
@@ -52,7 +53,7 @@
 
 
 .toggle-container {
-    margin-top: -0.5rem;
+    margin-top: 0rem;
     z-index: 3;
     position: absolute;
     right: 3.5em;

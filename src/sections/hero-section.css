@@ -118,7 +118,7 @@
 
 .hero-text button:not(:disabled):hover {
     outline: 0;
-    background: #f4e603;
+    background: var(--lighter-contrast-color);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
 

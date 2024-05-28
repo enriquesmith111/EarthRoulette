@@ -3,7 +3,7 @@
 } */
 
 :root {
-  --background-color: rgb(186, 197, 200);
+  --background-color: rgb(186, 197, 200, 0.80);
   --darker-contrast-color: rgb(240, 137, 52);
   --dark-contrast-color: rgb(255, 203, 161);
   --light-contrast-color:  rgb(47, 57, 112);
@@ -14,7 +14,7 @@
 
 
 [data-theme="dark"] {
-  --background-color: rgb(17, 17, 17);
+  --background-color: rgb(17, 17, 17, 0.90);
   --darker-contrast-color: rgb(3, 174, 210);
   --dark-contrast-color: rgb(104, 210, 232);
   --light-contrast-color: rgb(225, 195, 62);
@@ -25,6 +25,7 @@
 
 
 html {
+  scroll-behavior: smooth;
   height: 100%;
   background-color: var(--background-color);
   margin: 0%;
@@ -32,6 +33,9 @@ html {
 
 
 body {
+  z-index: 2;
+  background-image: url('./components/background.png');
+  /* background-size: cover; */
   margin: 0%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -94,6 +98,11 @@ h1 {
   color: var(--light-contrast-color);
   font-family: 'General Sans', sans-serif;
   
+}
+
+h4 {
+  color: var(--light-contrast-color);
+  font-family: 'General Sans', sans-serif;
 }
 
 p {
