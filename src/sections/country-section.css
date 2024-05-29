@@ -73,30 +73,105 @@
     justify-content: space-evenly;
 }
 
-.weather {
-    background-color: green;
-    -webkit-border-radius: 18px;
-    -moz-border-radius: 18px;
+.weather-default,
+.weather-night,
+.weather-day {
+    gap: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(177, 169, 169); /* Base background color */
+    transition: background-color 0.5s ease-in-out; /* Shorthand for transition properties */
     border-radius: 18px;
     height: 12rem;
     width: 24rem;
 }
+
+.weather-night {
+    background: rgb(58, 116, 164)}
+
+.weather-day {
+    background: rgb(47, 193, 241);
+}
 @media (orientation: portrait) {
-    .weather {
+    .weather-day, .weather-night, .weather-default {
+        gap: 0rem;
         height: 8rem;
         width: 16rem;
     }
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
-    .weather {
+    .weather-day, .weather-night, .weather-default {
+        gap: 0rem;
         height: 8rem;
         width: 16rem;
     }
 }
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
-    .weather {
+    .weather-day, .weather-night , .weather-default{
+        gap: 0rem;
         height: 8rem;
         width: 16rem;
+    }
+}
+
+.icon-and-capital {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-and-capital h4 {
+margin: 0px;
+}
+@media (orientation: portrait) {
+    .icon-and-capital h4 {
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .icon-and-capital h4 {
+        font-size: 12px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .icon-and-capital h4{
+        font-size: 12px;
+    }
+}
+@media (orientation: portrait) {
+    .location-temp h1 {
+        font-size: 24px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .location-temp h1 {
+        font-size: 24px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .location-temp h1 {
+        font-size: 24px;
+    }
+}
+
+
+.weather-animation {
+    height: 8rem;
+}
+@media (orientation: portrait) {
+    .weather-animation{
+        height: 5rem;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-animation{
+        height: 5rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-animation{
+        height: 5rem;
     }
 }
 

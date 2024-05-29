@@ -2,6 +2,15 @@ import './country-section.css'
 import Lottie from 'lottie-react'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import React, { useState, useEffect } from 'react'
+import ClearSkyDay from '../components/ clear sky day.json'
+import ClearSkyNight from '../components/clear sky night.json'
+import Fog from '../components/Fog.json'
+import CloudyDay from '../components/half cast day.json'
+import CloudyNight from '../components/half cast night.json'
+import RainDay from '../components/rain day.json'
+import RainNight from '../components/rain night.json'
+import Snow from '../components/snow.json'
+import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
 
 export default function CountrySection() {
@@ -127,27 +136,145 @@ function CountryText() {
 }
 
 function Weather({ country }) {
-    const location = country?.capital
-    const api = {
-        key: '16842ae1a21473b7ab24bd137fd9b4b1',
-        base: 'https://api.openweathermap.org/data/2.5/',
-    }
+    const [daytime, setIsDaytime] = useState(null);
 
-    if (!country) return
-    else {
-        fetch(`${api.base}weather?q=${location}&APPID=${api.key}`)
-            .then((res) => res.json())
-            .then((results) => {
-                console.log(results)
-            })
-    }
+    useEffect(() => {
+        const fetchWeather = async () => {
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/',
+            };
+
+            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const results = await response.json();
+
+            if (results.sys) {
+                const sunrise = results.sys.sunrise + results.timezone;
+                const sunset = results.sys.sunset + results.timezone;
+                const timezoneOffset = results.timezone; // Time zone offset in seconds
+                const currCountryTime = Math.floor(Date.now() / 1000) + timezoneOffset; // Current time in country's time zone
+                const isDay = currCountryTime > sunrise && currCountryTime < sunset;
+                setIsDaytime(isDay);
+            }
+        }
+        fetchWeather();
+    }, [country])
+    return (
+        <div>
+            <div className={country ? daytime !== null ? daytime ? "weather-day" : "weather-night" : "weather-default" : "weather-default" /* Fallback for missing country data */}>
+                {country && ( // Ensure country exists before rendering content
+                    <>
+                        <div className='icon-and-capital'>
+                            <WeatherIcon country={country} daytime={daytime} />
+                            <WeatherLocation country={country} />
+                        </div>
+                        <WeatherTemp country={country} />
+                    </>
+                )}
+                {/* Alternatively, display a message if country is null: */}
+                {!country && <h4>Press Spin for a Weather</h4>}
+            </div>
+        </div>
+    );
+}
+
+function WeatherIcon({ country, daytime }) {
+    const [weather, setWeather] = useState(null);
+    const [icon, setIcon] = useState(null);
+
+    useEffect(() => {
+        const fetchWeather = async () => {
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/',
+            };
+
+            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const results = await response.json();
+            console.log(results)
+            setWeather(results.weather[0].main.toString())
+
+            const getWeatherIcon = () => {
+                const isDaytime = !!daytime; // Convert truthy/falsy to boolean
+                switch (weather) {
+                    case 'Clear':
+                        return isDaytime ? ClearSkyDay : ClearSkyNight;
+                    case 'Clouds':
+                        return isDaytime ? CloudyDay : CloudyNight;
+                    case 'Rain':
+                        return isDaytime ? RainDay : RainNight;
+                    case 'Snow':
+                        return Snow;
+                    case 'Thunderstorm':
+                        return Thunderstorm;
+                    default:
+                        return Fog;
+                }
+            };
+            setIcon(getWeatherIcon());
+        }
+        fetchWeather();
+    }, [weather, country, daytime, icon])
+
+
 
     return (
-        <div className='weather'>
-            <p>weather</p>
+        <div className='weather-icon'>
+            <Lottie
+                className='weather-animation'
+                animationData={icon} />
         </div>
     )
 }
+
+function WeatherLocation({ country }) {
+    return (
+        <>
+            {<h4>{country ? country?.capital : ''},</h4>}
+            {<h4>{country?.name.common}</h4>}
+        </>
+    )
+}
+
+function WeatherTemp({ country }) {
+    const [temp, setTemp] = useState();
+
+    useEffect(() => {
+        const fetchTemp = async () => {
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/',
+            };
+
+            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const results = await response.json();
+            const temperature = results?.main.temp;
+            setTemp(temperature)
+        }
+        fetchTemp();
+    }, [country])
+
+    return (
+        <div className='location-temp'>
+            {<h1>{temp}°c</h1>}
+            {<h1>{((temp * 9 / 5) + 32).toFixed(2)}°F</h1>}
+        </div>
+    );
+}
+
+
+
+
+
 
 function SpinButton({ onClick, country }) {
     const buttonText = country ? 'Re-spin' : 'Spin';
