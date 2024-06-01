@@ -131,6 +131,30 @@ function CountryImage({ country }) {
 
 // RIGHT SECTION
 function CountryText({ country }) {
+    const [time, setTime] = useState();
+
+    useEffect(() => {
+        const fetchTime = async () => {
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/',
+            };
+
+            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const results = await response.json();
+
+            const timezoneOffset = results.timezone;
+            const currCountryTime = Math.floor(Date.now() / 1000) + timezoneOffset;
+            let myDate = new Date(currCountryTime * 1000);
+            const formattedTime = myDate.toGMTString().slice(0, -4);
+            setTime(formattedTime);
+        };
+        fetchTime();
+    }, [country]);
+
 
     if (!country) return;
     const languages = Object.values(country?.languages)
@@ -141,7 +165,7 @@ function CountryText({ country }) {
     return (
         <div className='country-text'>
             <h4>
-                {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents} more precisely {country?.subregion} with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is {Object.values(country?.currencies)?.[0].name} {country?.currency}. The common languages spoken in the country are {languages}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. The time zone in {country?.name.common} is {country?.timezones}.
+                {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents} more precisely {country?.subregion} with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is {Object.values(country?.currencies)?.[0].name} {country?.currency}. The common languages spoken in the country are {languages}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. The time and date in the capital of {country.capital} is {time}
             </h4>
         </div>
     )
