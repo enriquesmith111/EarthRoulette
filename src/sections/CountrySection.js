@@ -1,7 +1,7 @@
 import './country-section.css'
 import Lottie from 'lottie-react'
-import BoardingPass from '../components/Animation Boarding Pass.json'
 import React, { useState, useEffect } from 'react'
+import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
 import ClearSkyNight from '../components/clear sky night.json'
 import Fog from '../components/Fog.json'
@@ -42,7 +42,9 @@ export default function CountrySection() {
             <div className='container' id='country-container'>
                 <InfoAndImage country={country} />
                 <div className='text-weather-buttons'>
-                    <CountryText />
+                    <div className='country-text'>
+                        <CountryText country={country} />
+                    </div>
                     <div className='weather-and-buttons'>
                         <Weather country={country} />
                         <div className='weather-buttons'>
@@ -52,7 +54,7 @@ export default function CountrySection() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
@@ -72,10 +74,11 @@ function CountryInfo({ country }) {
         <div className='country-info'>
             {country ? (
                 <>
-                    {<img src={country?.flags.svg} alt={`Flag of ${country?.name.common}`}></img>}
+                    {<img src={country?.flags.svg} alt={`Flag of ${country?.flags.alt}
+                    }`}></img>}
                     {<h4>{country?.name?.common}</h4>}
                     {/* {<h4>{country?.subregion}</h4>} */}
-                    {<h4>Currency: {country?.currencies?.[Object.keys(country.currencies)[0]].name}</h4>}
+                    {<h4>{country?.subregion}</h4>}
                 </>
             ) : (
                 <h4>Press Spin for a random country</h4>
@@ -86,11 +89,11 @@ function CountryInfo({ country }) {
 
 
 function CountryImage({ country }) {
-    const apiKey = 'NrVRoLjdKk9U4R8hA9nnfmEuu0CJ8YDWLHAm9V4ohXo';
     const [imageUrl, setImageUrl] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const apiKey = 'NrVRoLjdKk9U4R8hA9nnfmEuu0CJ8YDWLHAm9V4ohXo';
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
 
@@ -124,13 +127,22 @@ function CountryImage({ country }) {
     );
 }
 
+
+
 // RIGHT SECTION
-function CountryText() {
+function CountryText({ country }) {
+
+    if (!country) return;
+    const languages = Object.values(country?.languages)
+        .slice(0, -1) // Get all elements except the last
+        .join(', ') + // Join them with commas
+        ' and ' + // Add 'and' before the last element
+        Object.values(country?.languages).slice(-1);
     return (
         <div className='country-text'>
-            <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur nam quia eum? Quibusdam blanditiis beatae odit officiis neque adipisci veritatis atque illum deserunt fugiat, quisquam quod. Culpa ex quos totam sequi et qui nesciunt accusantium neque? Aliquid, ratione! Explicabo, dignissimos?
-            </p>
+            <h4>
+                {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents} more precisely {country?.subregion} with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is {Object.values(country?.currencies)?.[0].name} {country?.currency}. The common languages spoken in the country are {languages}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. The time zone in {country?.name.common} is {country?.timezones}.
+            </h4>
         </div>
     )
 }
@@ -167,11 +179,14 @@ function Weather({ country }) {
             <div className={country ? daytime !== null ? daytime ? "weather-day" : "weather-night" : "weather-default" : "weather-default" /* Fallback for missing country data */}>
                 {country && ( // Ensure country exists before rendering content
                     <>
-                        <div className='icon-and-capital'>
-                            <WeatherIcon country={country} daytime={daytime} />
-                            <WeatherLocation country={country} />
+                        <div className='icon-capital-temp'>
+                            <div className='icon-and-capital'>
+                                <WeatherIcon country={country} daytime={daytime} />
+                                <WeatherLocation country={country} />
+                            </div>
+                            <WeatherTemp country={country} />
                         </div>
-                        <WeatherTemp country={country} />
+                        <WeatherWeek country={country} daytime={daytime} />
                     </>
                 )}
                 {/* Alternatively, display a message if country is null: */}
@@ -197,7 +212,6 @@ function WeatherIcon({ country, daytime }) {
 
             const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
             const results = await response.json();
-            console.log(results)
             setWeather(results.weather[0].main.toString())
 
             const getWeatherIcon = () => {
@@ -270,6 +284,84 @@ function WeatherTemp({ country }) {
         </div>
     );
 }
+
+function WeatherWeek({ country, daytime }) {
+    const [weatherWeek, setWeatherWeek] = useState();
+
+    useEffect(() => {
+        const fetchWeek = async () => {
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/forecast?q=',
+            };
+
+            const response = await fetch(`${api.base}${location}&units=metric&appid=${api.key}`);
+            const results = await response.json();
+            const week = results.list;
+            const noonWeather = week.filter(day => day.dt_txt.includes('12:00:00'));
+            setWeatherWeek(noonWeather);
+        };
+        fetchWeek();
+        console.log(weatherWeek)
+    }, [country]); // Re-run useEffect when country changes // Re-run useEffect when country changes
+
+    return (
+        <>
+            {weatherWeek && (
+                <div className='weather-week'>
+                    {weatherWeek.map((dayData) => (
+                        <div key={dayData.dt_txt}>
+                            <WeatherDay dayData={dayData} key={dayData.dt} daytime={daytime} />
+                        </div>
+                    ))}
+                </div>
+            )}
+        </>
+    );
+}
+
+function WeatherDay({ dayData, daytime }) {
+    const weather = dayData.weather[0].main
+    const [weatherIcon, setWeatherIcon] = useState(null);
+    const monthDay = dayData.dt_txt.slice(5, 10);
+
+    useEffect(() => {
+        const getWeatherIcon = () => {
+
+            switch (dayData?.weather?.[0]?.main) { // Handle potential undefined values
+                case 'Clear':
+                    return ClearSkyDay;
+                case 'Clouds':
+                    return CloudyDay;
+                case 'Rain':
+                    return RainDay;
+                case 'Snow':
+                    return Snow;
+                case 'Thunderstorm':
+                    return Thunderstorm;
+                default:
+                    return Fog;
+            }
+        };
+
+        setWeatherIcon(getWeatherIcon());
+    }, [dayData, daytime]);
+
+    return (
+        <div className='day-weather-of-week'>
+            {<h4>{monthDay}</h4>}
+            <Lottie
+                className='weather-week-animation'
+                animationData={weatherIcon} />
+            {<h4>{Math.round(dayData?.main.temp)}°c</h4>}
+        </div>
+    )
+}
+
+
 
 
 

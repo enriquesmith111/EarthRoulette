@@ -4,10 +4,41 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    overflow-x: hidden;
+}
+@media (orientation: portrait) {
+    .country-info h4 {
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-info h4 {
+        font-size: 12px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-info h4 {
+        font-size: 12px
+    }
 }
 
 .country-info img {
     height: 30px;
+}
+@media (orientation: portrait) {
+    .country-info img {
+        height: 20px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-info img {
+        height: 20px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-info img {
+        height: 20px;
+    }
 }
 
 
@@ -52,39 +83,52 @@
     flex-direction: column;
     justify-content: flex-end;
 }
+@media (orientation: portrait) {
+    .text-weather-buttons {
+       flex-direction: column-reverse;
+    }
+} 
 
 .country-text {
+    display: contents;
     height: 50%;
 }
 
 
-.country-text p {
+.country-text h4 {
+    width: 90%;
     margin: 1rem;
 }
 @media (orientation: portrait) {
-    .country-text p {
-        margin: 0.5rem;
+    .country-text h4 {
+        text-align: center;
+        margin: 1rem;
+        font-size: 14px;
     }
 } 
 
 
 .weather-and-buttons {
+    width: 100%;
+    gap: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .weather-default,
 .weather-night,
 .weather-day {
-    gap: 3rem;
+    margin-left: 1rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     background-color: rgb(177, 169, 169); /* Base background color */
     transition: background-color 0.5s ease-in-out; /* Shorthand for transition properties */
     border-radius: 18px;
-    height: 12rem;
-    width: 24rem;
+    height: 20rem;
+    width: 24em;
 }
 
 .weather-night {
@@ -95,24 +139,33 @@
 }
 @media (orientation: portrait) {
     .weather-day, .weather-night, .weather-default {
-        gap: 0rem;
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
         height: 8rem;
         width: 16rem;
+        align-items: center;
+        justify-content: center;
     }
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
     .weather-day, .weather-night, .weather-default {
-        gap: 0rem;
+        gap: 1rem;
         height: 8rem;
         width: 16rem;
     }
 }
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
     .weather-day, .weather-night , .weather-default{
-        gap: 0rem;
+        gap: 1rem;
         height: 8rem;
         width: 16rem;
     }
+}
+
+.icon-capital-temp {
+    display: flex;
+    gap: 3rem;
 }
 
 .icon-and-capital {
@@ -122,6 +175,7 @@
 }
 
 .icon-and-capital h4 {
+    text-align: center;
 margin: 0px;
 }
 @media (orientation: portrait) {
@@ -139,9 +193,14 @@ margin: 0px;
         font-size: 12px;
     }
 }
+
+.location-temp {
+    margin-top: 1rem;
+}
 @media (orientation: portrait) {
     .location-temp h1 {
         font-size: 24px;
+        margin:0rem;
     }
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
@@ -176,11 +235,44 @@ margin: 0px;
 }
 
 .weather-buttons {
-    margin: 1rem;
-    gap: 1rem;
     display: flex;
     flex-direction: column;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
+    gap: 1rem;
     justify-content: center;
+}
+@media (orientation: portrait) {
+    .weather-buttons {
+        margin: 0rem;
+    }
+} 
+
+.weather-week {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-evenly;
+}
+@media (orientation: portrait) {
+    .weather-week {
+        display: none;
+    }
+} 
+
+
+.day-weather-of-week {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day-weather-of-week h4 {
+margin: 0rem;
+}
+
+.weather-week-animation {
+    height: 3rem;
 }
 
 .weather-buttons button {
@@ -202,8 +294,8 @@ margin: 0px;
 }
 @media (orientation: portrait) {
     .weather-buttons button {
-        height: 2.5rem;
-        width: 8rem;
+        height: 3rem;
+        width: 6rem;
         font-size: 12px;
     }
 } 
