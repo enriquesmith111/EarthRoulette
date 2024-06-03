@@ -25,7 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:server": "nodemon server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
