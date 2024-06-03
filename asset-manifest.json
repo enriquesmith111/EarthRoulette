@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/enriquesmith111/EarthRoulette/static/css/main.b3ff8c6f.css",
+    "main.js": "/enriquesmith111/EarthRoulette/static/js/main.e03c798c.js",
+    "static/media/background.png": "/enriquesmith111/EarthRoulette/static/media/background.da653e42d7d1a6d4927c.png",
+    "static/media/light-logo.png": "/enriquesmith111/EarthRoulette/static/media/light-logo.7b0e96d4f4811caf2e78.png",
+    "index.html": "/enriquesmith111/EarthRoulette/index.html",
+    "main.b3ff8c6f.css.map": "/enriquesmith111/EarthRoulette/static/css/main.b3ff8c6f.css.map",
+    "main.e03c798c.js.map": "/enriquesmith111/EarthRoulette/static/js/main.e03c798c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3ff8c6f.css",
+    "static/js/main.e03c798c.js"
+  ]
+}
