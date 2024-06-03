@@ -22,12 +22,17 @@ export default function CountrySection() {
 
     useEffect(() => {
         const fetchCountry = async () => {
-            const response = await axios.get('https://restcountries.com/v3.1/all');
-            const countries = response.data;
-            setCountriesList(countries)
-            fetchCountry();
-        }
-        fetchCountry()
+            try {
+                const response = await axios.get('https://restcountries.com/v3.1/all');
+                const countries = response.data;
+                setCountriesList(countries); // Set countries only once
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        // Fetch only once on component mount (empty dependency array)
+        fetchCountry();
     }, []);
 
 
