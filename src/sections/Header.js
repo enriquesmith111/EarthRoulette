@@ -10,10 +10,12 @@ export default function Header() {
 
     return (
         <div className='header'>
-            <img
-                src={isLight ? lightLogo : darkLogo}
-                alt='paper-airplane-png'>
-            </img>
+            <a href='#'>
+                <img
+                    src={isLight ? lightLogo : darkLogo}
+                    alt='paper-airplane-png'>
+                </img>
+            </a>
 
             <Toggle
                 isChecked={isLight}

@@ -80,20 +80,20 @@ body {
 }
 @media (orientation: portrait) {
   .container {
-    margin-top: -16vh;
+    margin-top: -10vh;
     display: flex;
     flex-direction: column;
   }
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
   .container {
-    margin-top: -30vh;
+    margin-top: 0vh;
     display: flex;
   }
 }
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
   .container {
-    margin-top: -25vh;
+    margin-top: 0vh;
     display: flex;
   }
 }

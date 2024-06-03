@@ -50,9 +50,12 @@
 
 .hero-text h1 {
     font-size: 80px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 @media (orientation: portrait) {
     .hero-text h1 {
+        
         font-size: 40px;
     }
 } 
@@ -66,6 +69,26 @@
     .hero-text h1 {
         font-size: 50px;
         margin: 0rem;
+    }
+}
+
+.hero-text p {
+    font-size: 18px;
+
+}
+@media (orientation: portrait) {
+    .hero-text p {       
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .hero-text p {
+        font-size: 12px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .hero-text p {
+        font-size: 12px;
     }
 }
 
@@ -84,7 +107,7 @@
 /* CSS */
 .hero-text button {
     height: 4rem;
-    width: 8rem;
+    width: 16rem;
     background-color: var(--light-contrast-color);
     border-radius: 12px;
     color: var(--button-text-color);
@@ -103,7 +126,7 @@
     .hero-text button {
         margin: 0rem;
         height: 2.5rem;
-        width: 6rem;
+        width: 8rem;
         font-size: 16px;
     }
 }
@@ -111,7 +134,7 @@
     .hero-text button {
         margin: 0rem;
         height: 2.5rem;
-        width: 6rem;
+        width: 8rem;
         font-size: 16px;
     }
 }

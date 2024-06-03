@@ -13,7 +13,7 @@ import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
 
-export default function CountrySection() {
+export default function CountrySection({ weather }) {
     const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
 
@@ -49,7 +49,7 @@ export default function CountrySection() {
                         <Weather country={country} />
                         <div className='weather-buttons'>
                             <SpinButton onClick={handleSpin} country={country} />
-                            <SearchButton />
+                            <SearchButton country={country} />
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ function CountryImage({ country }) {
 
             try {
                 const response = await axios.get(
-                    `https://api.unsplash.com/search/photos?query=${country?.name?.common}&random&client_id=${apiKey}`
+                    `https://api.unsplash.com/search/photos?query=${country?.name.common}&random&client_id=${apiKey}`
                 );
                 // Access the first photo's URL directly
                 setImageUrl(response.data.results[Math.floor(Math.random() * 10)].urls.regular);
@@ -114,7 +114,7 @@ function CountryImage({ country }) {
     return (
         <div className='country-image'>
             {imageUrl ? (
-                <img src={imageUrl} alt="Random Country" />
+                imageUrl && <img src={imageUrl} alt="Random Country" />
             ) : (
                 <Lottie
                     className='boarding-pass'
@@ -122,7 +122,6 @@ function CountryImage({ country }) {
                     speed={0.5}
                 />
             )}
-            {error && <p>Error fetching image: {error}</p>}
         </div>
     );
 }
@@ -162,11 +161,21 @@ function CountryText({ country }) {
         .join(', ') + // Join them with commas
         ' and ' + // Add 'and' before the last element
         Object.values(country?.languages).slice(-1);
+
+    const capitals = Object.values(country?.capital)
+        .slice(0, -1) // Get all elements except the last
+        .join(', ') + // Join them with commas
+        ' and ' + // Add 'and' before the last element
+        Object.values(country?.languages).slice(-1);
+
     return (
         <div className='country-text'>
-            <h4>
-                {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents} more precisely {country?.subregion} with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is {Object.values(country?.currencies)?.[0].name} {country?.currency}. The common languages spoken in the country are {languages}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. The time and date in the capital of {country.capital} is {time}
-            </h4>
+            <h1>
+                {country?.name.common}
+            </h1>
+            <p>
+                {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents}, more precisely {country?.subregion}, with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side of the road and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is the {Object.values(country?.currencies)?.[0].name} {country?.currency}. {Object.values(country?.languages).length >= 2 ? `The common languages spoken in the country are ${languages}` : ` The common language spoken is ${Object.values(country?.languages)[0]}`}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. {Object.values(country?.capital).length >= 2 ? `The time and date in the many capital cities of ${capitals} ` : `The time and date in the capital city of ${Object.values(country?.capital)[0]}`} is {time}
+            </p>
         </div>
     )
 }
@@ -186,7 +195,7 @@ function Weather({ country }) {
 
             const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
             const results = await response.json();
-
+            console.log(results)
             if (results.sys) {
                 const sunrise = results.sys.sunrise + results.timezone;
                 const sunset = results.sys.sunset + results.timezone;
@@ -401,10 +410,41 @@ function SpinButton({ onClick, country }) {
     )
 }
 
-function SearchButton() {
+function SearchButton({ country }) {
+    const [countryCode, setCountryCode] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchCode = async () => {
+            setIsLoading(true);
+            if (!country || !country.capital) return;
+
+            const location = country?.capital;
+            const api = {
+                key: '16842ae1a21473b7ab24bd137fd9b4b1',
+                base: 'https://api.openweathermap.org/data/2.5/',
+            };
+
+            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const results = await response.json();
+            console.log(results)
+            if (results.sys) {
+                setCountryCode(results.sys.country);
+            }
+            setIsLoading(false);
+        }
+        fetchCode();
+    }, [country])
+
+    const handleSearchClick = () => {
+        window.open(`https://www.skyscanner.net/flights-to/${countryCode}`, "_blank");
+    };
+
+    const isDisabled = countryCode === undefined || isLoading;
+
     return (
         <>
-            <button>Search Flight</button>
+            <button onClick={handleSearchClick} disabled={isDisabled}>Search Flight</button>
         </>
     )
 }
