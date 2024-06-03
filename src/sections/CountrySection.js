@@ -29,10 +29,9 @@ export default function CountrySection({ weather }) {
             const randomCountry = countries[randomIndex];
 
             setCountry(randomCountry);
-            console.log('Fetched Country Data:', randomCountry); // Log the fetched country data
+
         } catch (error) {
             setError(error.message);
-            console.log('Error fetching country:', error); // Log the error object
         }
     };
 
@@ -69,7 +68,7 @@ function InfoAndImage({ country }) {
 }
 
 function CountryInfo({ country }) {
-    // console.log(country.currencies)
+
     return (
         <div className='country-info'>
             {country ? (
@@ -136,13 +135,14 @@ function CountryText({ country }) {
         const fetchTime = async () => {
             if (!country || !country.capital) return;
 
-            const location = country?.capital;
+            const lat = country?.capitalInfo.latlng[0];
+            const lon = country?.capitalInfo.latlng[1];
             const api = {
                 key: '16842ae1a21473b7ab24bd137fd9b4b1',
                 base: 'https://api.openweathermap.org/data/2.5/',
             };
 
-            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
             const results = await response.json();
 
             const timezoneOffset = results.timezone;
@@ -187,15 +187,16 @@ function Weather({ country }) {
         const fetchWeather = async () => {
             if (!country || !country.capital) return;
 
-            const location = country?.capital;
+            const lat = country?.capitalInfo.latlng[0];
+            const lon = country?.capitalInfo.latlng[1];
             const api = {
                 key: '16842ae1a21473b7ab24bd137fd9b4b1',
                 base: 'https://api.openweathermap.org/data/2.5/',
             };
 
-            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
             const results = await response.json();
-            console.log(results)
+
             if (results.sys) {
                 const sunrise = results.sys.sunrise + results.timezone;
                 const sunset = results.sys.sunset + results.timezone;
@@ -237,13 +238,14 @@ function WeatherIcon({ country, daytime }) {
         const fetchWeather = async () => {
             if (!country || !country.capital) return;
 
-            const location = country?.capital;
+            const lat = country?.capitalInfo.latlng[0];
+            const lon = country?.capitalInfo.latlng[1];
             const api = {
                 key: '16842ae1a21473b7ab24bd137fd9b4b1',
                 base: 'https://api.openweathermap.org/data/2.5/',
             };
 
-            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
+            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
             const results = await response.json();
             setWeather(results.weather[0].main.toString())
 
@@ -338,7 +340,6 @@ function WeatherWeek({ country, daytime }) {
             setWeatherWeek(noonWeather);
         };
         fetchWeek();
-        console.log(weatherWeek)
     }, [country]); // Re-run useEffect when country changes // Re-run useEffect when country changes
 
     return (
@@ -427,7 +428,7 @@ function SearchButton({ country }) {
 
             const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
             const results = await response.json();
-            console.log(results)
+
             if (results.sys) {
                 setCountryCode(results.sys.country);
             }
