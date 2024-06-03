@@ -13,28 +13,35 @@ import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
 
-export default function CountrySection({ weather }) {
+export default function CountrySection() {
+    const [countriesList, setCountriesList] = useState();
     const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
 
     // ... existing code for fetching country data (useEffect, etc.)
 
+    useEffect(() => {
+        const fetchCountry = async () => {
+            const response = await axios.get('https://restcountries.com/v3.1/all');
+            const countries = response.data;
+            setCountriesList(countries)
+            fetchCountry();
+        }
+        fetchCountry()
+    }, []);
+
+
     const handleSpin = async () => {
         try {
-            const response = await axios.get('https://restcountries.com/v3.1/all');
-            const countries = response.data; // Array of all countries
-
             // Generate a random index within the countries array
-            const randomIndex = Math.floor(Math.random() * countries.length);
-            const randomCountry = countries[randomIndex];
-
+            const randomIndex = Math.floor(Math.random() * countriesList.length);
+            const randomCountry = countriesList[randomIndex];
             setCountry(randomCountry);
 
         } catch (error) {
             setError(error.message);
         }
     };
-
 
     return (
         <div className='section'>
