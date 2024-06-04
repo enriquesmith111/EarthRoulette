@@ -12,27 +12,35 @@ import RainNight from '../components/rain night.json'
 import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
+import countries from '../components/countries.json'
 
 export default function CountrySection() {
     const [countriesList, setCountriesList] = useState();
     const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
 
-    // ... existing code for fetching country data (useEffect, etc.)
+    // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
+
+    // useEffect(() => {
+    //     const fetchCountry = async () => {
+    //         try {
+    //             const response = await axios.get('https://restcountries.com/v3.1/all');
+    //             const countries = response.data;
+    //             setCountriesList(countries); // Set countries only once
+    //         } catch (error) {
+    //             setError(error.message);
+    //         }
+    //     };
+
+    //     // Fetch only once on component mount (empty dependency array)
+    //     fetchCountry();
+    // }, []);
 
     useEffect(() => {
         const fetchCountry = async () => {
-            try {
-                const response = await axios.get('https://restcountries.com/v3.1/all');
-                const countries = response.data;
-                setCountriesList(countries); // Set countries only once
-            } catch (error) {
-                setError(error.message);
-            }
-        };
-
-        // Fetch only once on component mount (empty dependency array)
-        fetchCountry();
+            setCountriesList(countries)
+        }
+        fetchCountry()
     }, []);
 
 
