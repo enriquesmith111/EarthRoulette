@@ -42,7 +42,7 @@ export default function CountrySection() {
                 <InfoAndImage country={country} info={info} />
                 <div className='text-weather-buttons'>
                     <div className='country-text'>
-                        <CountryText country={country} />
+                        <CountryText country={country} info={info} />
                     </div>
                     <div className='weather-and-buttons'>
                         <Weather country={country} info={info} />
@@ -119,24 +119,22 @@ function CountryImage({ country, info }) {
 
 
 // RIGHT SECTION
-function CountryText({ country }) {
+function CountryText({ country, info }) {
     const [time, setTime] = useState();
 
     useEffect(() => {
         const fetchTime = async () => {
             if (!country || !country.capital) return;
-
-            const response = await fetch(`http://localhost:8000/info`);
-            const results = await response?.data?.weather?.json();
-
-            const timezoneOffset = results?.timezone;
+            const timezoneOffset = info?.weather.timezone;
             const currCountryTime = Math.floor(Date.now() / 1000) + timezoneOffset;
             let myDate = new Date(currCountryTime * 1000);
             const formattedTime = myDate.toGMTString().slice(0, -4);
             setTime(formattedTime);
         };
+
         fetchTime();
-    }, [country]);
+
+    }, [country, info]);
 
 
     if (!country) return;
