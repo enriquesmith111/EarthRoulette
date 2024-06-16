@@ -17,6 +17,7 @@ import countriesLocal from '../components/countries.json'
 export default function CountrySection() {
     const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
+    const [info, setInfo] = useState(null)
 
     // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
 
@@ -27,6 +28,7 @@ export default function CountrySection() {
                 `http://localhost:8000/info`
             );
             console.log(response)
+            setInfo(response?.data)
             setCountry(response?.data?.country);
 
         } catch (error) {
@@ -37,16 +39,16 @@ export default function CountrySection() {
     return (
         <div className='section'>
             <div className='container' id='country-container'>
-                <InfoAndImage country={country} />
+                <InfoAndImage country={country} info={info} />
                 <div className='text-weather-buttons'>
                     <div className='country-text'>
                         <CountryText country={country} />
                     </div>
                     <div className='weather-and-buttons'>
-                        <Weather country={country} />
+                        <Weather country={country} info={info} />
                         <div className='weather-buttons'>
                             <SpinButton onClick={handleSpin} country={country} />
-                            <SearchButton country={country} />
+                            <SearchButton country={country} info={info} />
                         </div>
                     </div>
                 </div>
@@ -56,11 +58,11 @@ export default function CountrySection() {
 }
 
 // LEFT SECTION
-function InfoAndImage({ country }) {
+function InfoAndImage({ country, info }) {
     return (
         <div className='info-and-image'>
             <CountryInfo country={country} />
-            <CountryImage country={country} />
+            <CountryImage country={country} info={info} />
         </div>
     )
 }
@@ -85,20 +87,19 @@ function CountryInfo({ country }) {
 }
 
 
-function CountryImage({ country }) {
+function CountryImage({ country, info }) {
     const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
-            const response = await axios.get(`http://localhost:8000/info`);
-            const responseImage = await axios.get(response?.data?.imageUrl)
+            const responseImage = await axios.get(info?.imageUrl)
             // Access the first photo's URL directly
             setImageUrl(responseImage.data.results[Math.floor(Math.random() * 10)].urls.regular);
         };
 
         fetchRandomCountryImage();
-    }, [country]);
+    }, [country, info]);
 
     return (
         <div className='country-image'>
@@ -125,17 +126,10 @@ function CountryText({ country }) {
         const fetchTime = async () => {
             if (!country || !country.capital) return;
 
-            const lat = country?.capitalInfo.latlng[0];
-            const lon = country?.capitalInfo.latlng[1];
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/',
-            };
+            const response = await fetch(`http://localhost:8000/info`);
+            const results = await response?.data?.weather?.json();
 
-            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
-            const results = await response.json();
-
-            const timezoneOffset = results.timezone;
+            const timezoneOffset = results?.timezone;
             const currCountryTime = Math.floor(Date.now() / 1000) + timezoneOffset;
             let myDate = new Date(currCountryTime * 1000);
             const formattedTime = myDate.toGMTString().slice(0, -4);
@@ -170,34 +164,24 @@ function CountryText({ country }) {
     )
 }
 
-function Weather({ country }) {
+function Weather({ country, info }) {
     const [daytime, setIsDaytime] = useState(null);
 
     useEffect(() => {
         const fetchWeather = async () => {
             if (!country || !country.capital) return;
 
-            const lat = country?.capitalInfo.latlng[0];
-            const lon = country?.capitalInfo.latlng[1];
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/',
-            };
-
-            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
-            const results = await response.json();
-
-            if (results.sys) {
-                const sunrise = results.sys.sunrise + results.timezone;
-                const sunset = results.sys.sunset + results.timezone;
-                const timezoneOffset = results.timezone; // Time zone offset in seconds
+            if (info?.weather.sys) {
+                const sunrise = info?.weather.sys.sunrise + info?.weather.timezone;
+                const sunset = info?.weather.sys.sunset + info?.weather.timezone;
+                const timezoneOffset = info?.weather.timezone; // Time zone offset in seconds
                 const currCountryTime = Math.floor(Date.now() / 1000) + timezoneOffset; // Current time in country's time zone
                 const isDay = currCountryTime > sunrise && currCountryTime < sunset;
                 setIsDaytime(isDay);
             }
         }
         fetchWeather();
-    }, [country])
+    }, [country, info])
     return (
         <div>
             <div className={country ? daytime !== null ? daytime ? "weather-day" : "weather-night" : "weather-default" : "weather-default" /* Fallback for missing country data */}>
@@ -205,12 +189,12 @@ function Weather({ country }) {
                     <>
                         <div className='icon-capital-temp'>
                             <div className='icon-and-capital'>
-                                <WeatherIcon country={country} daytime={daytime} />
+                                <WeatherIcon country={country} daytime={daytime} info={info} />
                                 <WeatherLocation country={country} />
                             </div>
-                            <WeatherTemp country={country} />
+                            <WeatherTemp country={country} info={info} />
                         </div>
-                        <WeatherWeek country={country} daytime={daytime} />
+                        <WeatherWeek country={country} daytime={daytime} info={info} />
                     </>
                 )}
                 {/* Alternatively, display a message if country is null: */}
@@ -220,24 +204,14 @@ function Weather({ country }) {
     );
 }
 
-function WeatherIcon({ country, daytime }) {
+function WeatherIcon({ country, daytime, info }) {
     const [weather, setWeather] = useState(null);
     const [icon, setIcon] = useState(null);
 
     useEffect(() => {
         const fetchWeather = async () => {
             if (!country || !country.capital) return;
-
-            const lat = country?.capitalInfo.latlng[0];
-            const lon = country?.capitalInfo.latlng[1];
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/',
-            };
-
-            const response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
-            const results = await response.json();
-            setWeather(results.weather[0].main.toString())
+            setWeather(info.weather.weather[0].main.toString())
 
             const getWeatherIcon = () => {
                 const isDaytime = !!daytime; // Convert truthy/falsy to boolean
@@ -259,7 +233,7 @@ function WeatherIcon({ country, daytime }) {
             setIcon(getWeatherIcon());
         }
         fetchWeather();
-    }, [weather, country, daytime, icon])
+    }, [weather, country, daytime, icon, info])
 
 
 
@@ -281,26 +255,17 @@ function WeatherLocation({ country }) {
     )
 }
 
-function WeatherTemp({ country }) {
+function WeatherTemp({ country, info }) {
     const [temp, setTemp] = useState();
 
     useEffect(() => {
         const fetchTemp = async () => {
             if (!country || !country.capital) return;
-
-            const location = country?.capital;
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/',
-            };
-
-            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
-            const results = await response.json();
-            const temperature = results?.main.temp;
+            const temperature = info?.weather.main.temp;
             setTemp(temperature)
         }
         fetchTemp();
-    }, [country])
+    }, [country, info])
 
     return (
         <div className='location-temp'>
@@ -310,27 +275,19 @@ function WeatherTemp({ country }) {
     );
 }
 
-function WeatherWeek({ country, daytime }) {
+function WeatherWeek({ country, daytime, info }) {
     const [weatherWeek, setWeatherWeek] = useState();
 
     useEffect(() => {
         const fetchWeek = async () => {
             if (!country || !country.capital) return;
 
-            const location = country?.capital;
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/forecast?q=',
-            };
-
-            const response = await fetch(`${api.base}${location}&units=metric&appid=${api.key}`);
-            const results = await response.json();
-            const week = results.list;
+            const week = info?.weatherWeek.list;
             const noonWeather = week.filter(day => day.dt_txt.includes('12:00:00'));
             setWeatherWeek(noonWeather);
         };
         fetchWeek();
-    }, [country]); // Re-run useEffect when country changes // Re-run useEffect when country changes
+    }, [country, info]); // Re-run useEffect when country changes // Re-run useEffect when country changes
 
     return (
         <>
@@ -392,7 +349,7 @@ function WeatherDay({ dayData, daytime }) {
 
 
 
-function SpinButton({ onClick, country }) {
+function SpinButton({ onClick, country, }) {
     const buttonText = country ? 'Re-spin' : 'Spin';
     return (
         <>
@@ -401,7 +358,7 @@ function SpinButton({ onClick, country }) {
     )
 }
 
-function SearchButton({ country }) {
+function SearchButton({ country, info }) {
     const [countryCode, setCountryCode] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -410,22 +367,13 @@ function SearchButton({ country }) {
             setIsLoading(true);
             if (!country || !country.capital) return;
 
-            const location = country?.capital;
-            const api = {
-                key: '16842ae1a21473b7ab24bd137fd9b4b1',
-                base: 'https://api.openweathermap.org/data/2.5/',
-            };
-
-            const response = await fetch(`${api.base}weather?q=${location}&units=metric&APPID=${api.key}`);
-            const results = await response.json();
-
-            if (results.sys) {
-                setCountryCode(results.sys.country);
+            if (info?.weather.sys) {
+                setCountryCode(info?.weather.sys.country);
             }
             setIsLoading(false);
         }
         fetchCode();
-    }, [country])
+    }, [country, info])
 
     const handleSearchClick = () => {
         window.open(`https://www.skyscanner.net/flights-to/${countryCode}`, "_blank");
