@@ -347,11 +347,31 @@ function WeatherDay({ dayData, daytime }) {
 
 
 
-function SpinButton({ onClick, country, }) {
+function SpinButton({ onClick, country }) {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleButtonClick = async () => {
+        setIsLoading(true); // Set loading state to true
+
+        try {
+            // Simulate some work (replace with actual API call if needed)
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+        } catch (error) {
+            console.error('Error simulating work:', error);
+            // Handle errors appropriately
+        } finally {
+            setIsLoading(false); // Set loading state to false after 1 second
+            onClick(); // Call the original onClick handler after loading
+        }
+    };
+
+    const isDisabled = undefined || isLoading;
+
+
     const buttonText = country ? 'Re-spin' : 'Spin';
     return (
         <>
-            <button onClick={onClick}>{buttonText}</button>
+            <button onClick={handleButtonClick} disabled={isDisabled}>{buttonText}</button>
         </>
     )
 }
@@ -362,13 +382,16 @@ function SearchButton({ country, info }) {
 
     useEffect(() => {
         const fetchCode = async () => {
+
             setIsLoading(true);
             if (!country || !country.capital) return;
 
             if (info?.weather.sys) {
                 setCountryCode(info?.weather.sys.country);
             }
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1000)
         }
         fetchCode();
     }, [country, info])
