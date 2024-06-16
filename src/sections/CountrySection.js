@@ -12,44 +12,22 @@ import RainNight from '../components/rain night.json'
 import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
-import countries from '../components/countries.json'
+import countriesLocal from '../components/countries.json'
 
 export default function CountrySection() {
-    const [countriesList, setCountriesList] = useState();
     const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
 
     // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
 
-    // useEffect(() => {
-    //     const fetchCountry = async () => {
-    //         try {
-    //             const response = await axios.get('https://restcountries.com/v3.1/all');
-    //             const countries = response.data;
-    //             setCountriesList(countries); // Set countries only once
-    //         } catch (error) {
-    //             setError(error.message);
-    //         }
-    //     };
-
-    //     // Fetch only once on component mount (empty dependency array)
-    //     fetchCountry();
-    // }, []);
-
-    useEffect(() => {
-        const fetchCountry = async () => {
-            setCountriesList(countries)
-        }
-        fetchCountry()
-    }, []);
-
-
     const handleSpin = async () => {
         try {
             // Generate a random index within the countries array
-            const randomIndex = Math.floor(Math.random() * countriesList.length);
-            const randomCountry = countriesList[randomIndex];
-            setCountry(randomCountry);
+            const response = await axios.get(
+                `http://localhost:8000/info`
+            );
+            console.log(response)
+            setCountry(response?.data?.country);
 
         } catch (error) {
             setError(error.message);
@@ -109,22 +87,14 @@ function CountryInfo({ country }) {
 
 function CountryImage({ country }) {
     const [imageUrl, setImageUrl] = useState(null);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const apiKey = 'NrVRoLjdKk9U4R8hA9nnfmEuu0CJ8YDWLHAm9V4ohXo';
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
-
-            try {
-                const response = await axios.get(
-                    `https://api.unsplash.com/search/photos?query=${country?.name.common}&random&client_id=${apiKey}`
-                );
-                // Access the first photo's URL directly
-                setImageUrl(response.data.results[Math.floor(Math.random() * 10)].urls.regular);
-            } catch (error) {
-                setError(error.message);
-            }
+            const response = await axios.get(`http://localhost:8000/info`);
+            const responseImage = await axios.get(response?.data?.imageUrl)
+            // Access the first photo's URL directly
+            setImageUrl(responseImage.data.results[Math.floor(Math.random() * 10)].urls.regular);
         };
 
         fetchRandomCountryImage();
