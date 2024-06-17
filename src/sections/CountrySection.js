@@ -175,6 +175,7 @@ function CountryText({ info, loading }) {
 function Weather({ info, loading }) {
     const country = info?.country
     const [daytime, setIsDaytime] = useState(null);
+    const loadingClass = loading ? 'loading' : '';
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -206,8 +207,7 @@ function Weather({ info, loading }) {
                         <WeatherWeek daytime={daytime} info={info} loading={loading} />
                     </>
                 )}
-                {/* Alternatively, display a message if country is null: */}
-                {!country && <h4>Press Spin for a Weather</h4>}
+                {!country && <h4 className={`${loadingClass}`}>Press Spin for a Weather</h4>}
             </div>
         </div>
     );
