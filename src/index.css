@@ -98,6 +98,16 @@ body {
   }
 }
 
+.loading {
+  animation: flash 0.8s alternate infinite;
+  z-index: 2; /* Animation properties */
+}
+
+@keyframes flash {
+  from { color: rgb(67, 67, 67) } /* Start from white */
+  to { color: rgb(192, 192, 192); } /* Animate to lightgrey */
+}
+
 h1 {
   color: var(--light-contrast-color);
   font-family: 'General Sans', sans-serif;

@@ -15,21 +15,22 @@ import axios from 'axios'
 import countriesLocal from '../components/countries.json'
 
 export default function CountrySection() {
-    const [country, setCountry] = useState(null);
     const [error, setError] = useState(null);
-    const [info, setInfo] = useState(null)
+    const [info, setInfo] = useState(null);
+    const [loading, setLoading] = useState(null);
 
     // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
 
     const handleSpin = async () => {
         try {
+            setLoading(true)
             // Generate a random index within the countries array
             const response = await axios.get(
                 `http://localhost:8000/info`
             );
             console.log(response)
             setInfo(response?.data)
-            setCountry(response?.data?.country);
+            setLoading(null)
 
         } catch (error) {
             setError(error.message);
@@ -39,16 +40,16 @@ export default function CountrySection() {
     return (
         <div className='section'>
             <div className='container' id='country-container'>
-                <InfoAndImage country={country} info={info} />
+                <InfoAndImage info={info} loading={loading} />
                 <div className='text-weather-buttons'>
                     <div className='country-text'>
-                        <CountryText country={country} info={info} />
+                        <CountryText info={info} loading={loading} />
                     </div>
                     <div className='weather-and-buttons'>
-                        <Weather country={country} info={info} />
+                        <Weather info={info} loading={loading} />
                         <div className='weather-buttons'>
-                            <SpinButton onClick={handleSpin} country={country} />
-                            <SearchButton country={country} info={info} />
+                            <SpinButton onClick={handleSpin} loading={loading} />
+                            <SearchButton info={info} loading={loading} />
                         </div>
                     </div>
                 </div>
@@ -58,37 +59,43 @@ export default function CountrySection() {
 }
 
 // LEFT SECTION
-function InfoAndImage({ country, info }) {
+function InfoAndImage({ info, loading }) {
     return (
         <div className='info-and-image'>
-            <CountryInfo country={country} />
-            <CountryImage country={country} info={info} />
+            <CountryInfo info={info} loading={loading} />
+            <CountryImage info={info} loading={loading} />
         </div>
     )
 }
 
-function CountryInfo({ country }) {
+function CountryInfo({ info, loading }) {
+
+    const country = info?.country
+    const loadingClass = loading ? 'loading' : '';
 
     return (
-        <div className='country-info'>
+        <div className='country-info' >
             {country ? (
                 <>
-                    {<img src={country?.flags.svg} alt={`Flag of ${country?.flags.alt}
+                    {<img className={`${loadingClass}`} src={country?.flags.svg} alt={`Flag of ${country?.flags.alt}
                     }`}></img>}
-                    {<h4>{country?.name?.common}</h4>}
+                    {<h4 className={`${loadingClass}`}>{country?.name?.common}</h4>}
                     {/* {<h4>{country?.subregion}</h4>} */}
-                    {<h4>{country?.subregion}</h4>}
+                    {<h4 className={`${loadingClass}`}>{country?.subregion}</h4>}
                 </>
             ) : (
-                <h4>Press Spin for a random country</h4>
+                <h4 className={`${loadingClass}`}>Press Spin for a random country</h4>
             )}
         </div>
     )
 }
 
 
-function CountryImage({ country, info }) {
+function CountryImage({ info, loading }) {
+    const country = info?.country
     const [imageUrl, setImageUrl] = useState(null);
+    const loadingClass = loading ? 'loading' : '';
+
 
     useEffect(() => {
         const fetchRandomCountryImage = async () => {
@@ -102,12 +109,12 @@ function CountryImage({ country, info }) {
     }, [country, info]);
 
     return (
-        <div className='country-image'>
+        <div className={`country-image ${loadingClass}`}>
             {imageUrl ? (
                 imageUrl && <img src={imageUrl} alt="Random Country" />
             ) : (
                 <Lottie
-                    className='boarding-pass'
+                    className={`boarding-pass ${loadingClass}`}
                     animationData={BoardingPass}
                     speed={0.5}
                 />
@@ -119,8 +126,11 @@ function CountryImage({ country, info }) {
 
 
 // RIGHT SECTION
-function CountryText({ country, info }) {
+function CountryText({ info, loading }) {
+    const country = info?.country
     const [time, setTime] = useState();
+    const loadingClass = loading ? 'loading' : '';
+
 
     useEffect(() => {
         const fetchTime = async () => {
@@ -151,18 +161,19 @@ function CountryText({ country, info }) {
         Object.values(country?.languages).slice(-1);
 
     return (
-        <div className='country-text'>
-            <h1>
+        <div className={`country-text ${loadingClass}`}>
+            <h1 className={`${loadingClass}`}>
                 {country?.name.common}
             </h1>
-            <p>
+            <p className={`${loadingClass}`}>
                 {country?.name.common} also known as {country?.name.official}, a country located in {country?.continents}, more precisely {country?.subregion}, with a population of approximately {country?.population.toLocaleString()} people and it's capital being {country?.capital}. Cars in {country?.name.common} drive on the {country?.car.side} side of the road and the total area of the country is {country?.area.toLocaleString()} square kilometers. The currency used in {country?.name.common} is the {Object.values(country?.currencies)?.[0].name} {country?.currency}. {Object.values(country?.languages).length >= 2 ? `The common languages spoken in the country are ${languages}` : ` The common language spoken is ${Object.values(country?.languages)[0]}`}. People from {country?.name.common} are known as {Object.values(country?.demonyms)?.[0].m}. {Object.values(country?.capital).length >= 2 ? `The time and date in the many capital cities of ${capitals} ` : `The time and date in the capital city of ${Object.values(country?.capital)[0]}`} is {time}
             </p>
         </div>
     )
 }
 
-function Weather({ country, info }) {
+function Weather({ info, loading }) {
+    const country = info?.country
     const [daytime, setIsDaytime] = useState(null);
 
     useEffect(() => {
@@ -182,17 +193,17 @@ function Weather({ country, info }) {
     }, [country, info])
     return (
         <div>
-            <div className={country ? daytime !== null ? daytime ? "weather-day" : "weather-night" : "weather-default" : "weather-default" /* Fallback for missing country data */}>
+            <div className={country ? daytime !== null ? daytime ? "weather-day" : "weather-night" : "weather-default" : "weather-default"}>
                 {country && ( // Ensure country exists before rendering content
                     <>
                         <div className='icon-capital-temp'>
                             <div className='icon-and-capital'>
-                                <WeatherIcon country={country} daytime={daytime} info={info} />
-                                <WeatherLocation country={country} />
+                                <WeatherIcon daytime={daytime} info={info} />
+                                <WeatherLocation info={info} loading={loading} />
                             </div>
-                            <WeatherTemp country={country} info={info} />
+                            <WeatherTemp info={info} loading={loading} />
                         </div>
-                        <WeatherWeek country={country} daytime={daytime} info={info} />
+                        <WeatherWeek daytime={daytime} info={info} loading={loading} />
                     </>
                 )}
                 {/* Alternatively, display a message if country is null: */}
@@ -202,7 +213,8 @@ function Weather({ country, info }) {
     );
 }
 
-function WeatherIcon({ country, daytime, info }) {
+function WeatherIcon({ daytime, info }) {
+    const country = info?.country
     const [weather, setWeather] = useState(null);
     const [icon, setIcon] = useState(null);
 
@@ -233,8 +245,6 @@ function WeatherIcon({ country, daytime, info }) {
         fetchWeather();
     }, [weather, country, daytime, icon, info])
 
-
-
     return (
         <div className='weather-icon'>
             <Lottie
@@ -244,16 +254,20 @@ function WeatherIcon({ country, daytime, info }) {
     )
 }
 
-function WeatherLocation({ country }) {
+function WeatherLocation({ info, loading }) {
+    const loadingClass = loading ? 'loading' : '';
+    const country = info?.country
     return (
         <>
-            {<h4>{country ? country?.capital : ''},</h4>}
-            {<h4>{country?.name.common}</h4>}
+            {<h4 className={`${loadingClass}`}>{country ? country?.capital : ''},</h4>}
+            {<h4 className={`${loadingClass}`}>{country?.name.common}</h4>}
         </>
     )
 }
 
-function WeatherTemp({ country, info }) {
+function WeatherTemp({ info, loading }) {
+    const country = info?.country
+    const loadingClass = loading ? 'loading' : '';
     const [temp, setTemp] = useState();
 
     useEffect(() => {
@@ -267,13 +281,14 @@ function WeatherTemp({ country, info }) {
 
     return (
         <div className='location-temp'>
-            {<h1>{temp}°c</h1>}
-            {<h1>{((temp * 9 / 5) + 32).toFixed(2)}°F</h1>}
+            {<h1 className={`${loadingClass}`}>{temp}°c</h1>}
+            {<h1 className={`${loadingClass}`}>{((temp * 9 / 5) + 32).toFixed(2)}°F</h1>}
         </div>
     );
 }
 
-function WeatherWeek({ country, daytime, info }) {
+function WeatherWeek({ daytime, info, loading }) {
+    const country = info?.country
     const [weatherWeek, setWeatherWeek] = useState();
 
     useEffect(() => {
@@ -293,7 +308,7 @@ function WeatherWeek({ country, daytime, info }) {
                 <div className='weather-week'>
                     {weatherWeek.map((dayData) => (
                         <div key={dayData.dt_txt}>
-                            <WeatherDay dayData={dayData} key={dayData.dt} daytime={daytime} />
+                            <WeatherDay dayData={dayData} key={dayData.dt} daytime={daytime} loading={loading} />
                         </div>
                     ))}
                 </div>
@@ -302,8 +317,9 @@ function WeatherWeek({ country, daytime, info }) {
     );
 }
 
-function WeatherDay({ dayData, daytime }) {
+function WeatherDay({ dayData, daytime, loading }) {
     const weather = dayData.weather[0].main
+    const loadingClass = loading ? 'loading' : '';
     const [weatherIcon, setWeatherIcon] = useState(null);
     const monthDay = dayData.dt_txt.slice(5, 10);
 
@@ -331,67 +347,51 @@ function WeatherDay({ dayData, daytime }) {
 
     return (
         <div className='day-weather-of-week'>
-            {<h4>{monthDay}</h4>}
+            {<h4 className={`${loadingClass}`}>{monthDay}</h4>}
             <Lottie
                 className='weather-week-animation'
                 animationData={weatherIcon} />
-            {<h4>{Math.round(dayData?.main.temp)}°c</h4>}
+            {<h4 className={`${loadingClass}`}>{Math.round(dayData?.main.temp)}°c</h4>}
         </div>
     )
 }
 
-
-
-
-
-
-
-
-function SpinButton({ onClick, country }) {
-    const [isLoading, setIsLoading] = useState(false);
+function SpinButton({ onClick, info, loading }) {
+    const country = info?.country
+    const loadingClass = loading ? 'loading' : '';
 
     const handleButtonClick = async () => {
-        setIsLoading(true); // Set loading state to true
-
         try {
             // Simulate some work (replace with actual API call if needed)
-            await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (error) {
             console.error('Error simulating work:', error);
             // Handle errors appropriately
         } finally {
-            setIsLoading(false); // Set loading state to false after 1 second
             onClick(); // Call the original onClick handler after loading
         }
     };
 
-    const isDisabled = undefined || isLoading;
-
-
     const buttonText = country ? 'Re-spin' : 'Spin';
     return (
         <>
-            <button onClick={handleButtonClick} disabled={isDisabled}>{buttonText}</button>
+            <button className={`${loadingClass}`} onClick={handleButtonClick}>{buttonText}</button>
         </>
     )
 }
 
-function SearchButton({ country, info }) {
+function SearchButton({ info, loading }) {
+    const country = info?.country
+    const loadingClass = loading ? 'loading' : '';
     const [countryCode, setCountryCode] = useState();
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchCode = async () => {
 
-            setIsLoading(true);
             if (!country || !country.capital) return;
 
             if (info?.weather.sys) {
                 setCountryCode(info?.weather.sys.country);
             }
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000)
         }
         fetchCode();
     }, [country, info])
@@ -400,11 +400,9 @@ function SearchButton({ country, info }) {
         window.open(`https://www.skyscanner.net/flights-to/${countryCode}`, "_blank");
     };
 
-    const isDisabled = countryCode === undefined || isLoading;
-
     return (
         <>
-            <button onClick={handleSearchClick} disabled={isDisabled}>Search Flight</button>
+            <button className={`${loadingClass}`} onClick={handleSearchClick}>Search Flight</button>
         </>
     )
 }
