@@ -4,6 +4,7 @@ const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config();
 
+const countriesLocal = require('/Users/enrique/Desktop/Projects/earthroulette/src/components/countries.json');
 
 
 const app = express();
@@ -12,10 +13,8 @@ app.use(cors())
 
 app.get('/info', async (req, res) => {
     const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
-    let aiData = null;
 
     try {
-
         // Attempt to fetch random country from live API
         const response = await axios.get('https://restcountries.com/v3.1/all');
         const countries = response.data;
