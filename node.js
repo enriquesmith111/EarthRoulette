@@ -51,7 +51,7 @@ app.get('/info', async (req, res) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-3.5-turb',
                 messages: [{ role: 'user', content: `give me 2 paragraphs of some general facts about ${randomCountry?.name.common} and best things to do on holiday` }],
                 max_tokens: 300,
             })
