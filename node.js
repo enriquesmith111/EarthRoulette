@@ -2,7 +2,8 @@ const PORT = 8000;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-require('dotenv').config()
+require('dotenv').config();
+
 
 
 const app = express();
@@ -45,12 +46,29 @@ app.get('/info', async (req, res) => {
         const responseWeek = await fetch(`${weekApi.base}${location}&units=metric&appid=${weekApi.key}`);
         const resultsWeek = await responseWeek.json();
 
+        // Attemp to fetch openAi country info
+        const options = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [{ role: 'user', content: `give me a pragraph of some general facts about ${randomCountry?.name.common} and best things to do on holiday` }],
+                max_tokens: 150,
+            })
+        }
+        const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options)
+        const aiData = await responseAI.json()
+
         // save data in json object
         const responseData = {
             country: randomCountry,
             imageUrl,
             weather: weatherResults,
             weatherWeek: resultsWeek,
+            aiData: aiData,
         };
 
         res.json(responseData);
