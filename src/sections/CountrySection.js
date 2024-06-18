@@ -421,7 +421,7 @@ function WeatherDay({ dayData, daytime, loading }) {
 
 function SpinButton({ onClick, info, loading }) {
     const country = info?.country
-    const loadingClass = loading ? 'loading' : '';
+    const loadingClass = loading ? 'loading disabled' : '';
 
     const handleButtonClick = async () => {
         try {
@@ -444,7 +444,7 @@ function SpinButton({ onClick, info, loading }) {
 
 function SearchButton({ info, loading }) {
     const country = info?.country
-    const loadingClass = loading ? 'loading' : '';
+    const loadingClass = loading ? 'loading disabled' : '';
     const [countryCode, setCountryCode] = useState();
 
     useEffect(() => {

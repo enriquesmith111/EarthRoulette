@@ -106,6 +106,12 @@ body {
   z-index: 2; /* Animation properties */
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: no-drop; /* Indicate element is not clickable */
+  pointer-events: none; /* Prevent user interaction */
+}
+
 @keyframes flash {
   from { color: rgb(67, 67, 67) } /* Start from white */
   to { color: rgb(192, 192, 192); } /* Animate to lightgrey */
