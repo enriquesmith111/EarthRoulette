@@ -47,6 +47,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center;
     overflow: hidden;
+    position: relative;
     border-radius: 5%;
     height: 36rem;
     width: 36rem;
@@ -77,6 +78,27 @@
     object-fit: cover;
 }
 
+.image-change-btn {
+    border-color: transparent;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.513);
+    height: 80px;
+    align-items: center;
+    position: absolute; /* Position the button absolutely within the image */
+    cursor: pointer;
+    right: 5%;
+}
+
+.image-change-btn:hover {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+i {
+    font-size: 40px;
+    color: rgba(255, 255, 255, 0.813);
+}
+
 /* Right section */
 .text-weather-buttons {
     display: flex;
@@ -85,7 +107,7 @@
 }
 @media (orientation: portrait) {
     .text-weather-buttons {
-       flex-direction: column-reverse;
+    flex-direction: column-reverse;
     }
 } 
 

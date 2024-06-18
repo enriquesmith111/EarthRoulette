@@ -94,6 +94,8 @@ function CountryInfo({ info, loading }) {
 function CountryImage({ info, loading }) {
     const country = info?.country
     const [imageUrl, setImageUrl] = useState(null);
+    const [images, setImages] = useState([]);
+    const [imageIndex, setImageIndex] = useState(0); // Track current image index
     const loadingClass = loading ? 'loading' : '';
 
 
@@ -101,17 +103,41 @@ function CountryImage({ info, loading }) {
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
             const responseImage = await axios.get(info?.imageUrl)
-            // Access the first photo's URL directly
-            setImageUrl(responseImage.data.results[Math.floor(Math.random() * 10)].urls.regular);
+            const fetchedImages = responseImage.data.results.map(
+                (result) => result.urls.regular
+            );
+            setImages(fetchedImages); // Store all fetched image URLs
+
+            // Set initial image URL (if any)
+            if (fetchedImages.length > 0) {
+                setImageUrl(fetchedImages[0]);
+            }
         };
 
         fetchRandomCountryImage();
     }, [country, info]);
 
+    const handleImageClick = () => {
+        // Handle potential edge cases (no images or last image reached)
+        if (images.length === 0) {
+            console.error('No images available for this country');
+            return;
+        }
+
+        const nextIndex = (imageIndex + 1) % images.length; // Wrap around if at last image
+        setImageIndex(nextIndex);
+        setImageUrl(images[nextIndex]);
+    };
+
     return (
         <div className={`country-image ${loadingClass}`}>
             {imageUrl ? (
-                imageUrl && <img src={imageUrl} alt="Random Country" />
+                <>
+                    <img src={imageUrl} alt="Random Country" />
+                    <button className="image-change-btn">
+                        <i onClick={handleImageClick} class="fa-solid fa-angles-right"></i>
+                    </button>
+                </>
             ) : (
                 <Lottie
                     className={`boarding-pass ${loadingClass}`}
