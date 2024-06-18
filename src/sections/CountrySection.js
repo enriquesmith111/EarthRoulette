@@ -130,21 +130,16 @@ function CountryText({ info, loading }) {
     const country = info?.country
     const [time, setTime] = useState();
     const loadingClass = loading ? 'loading' : '';
-    const aiText = info?.aiData.choices[0].message.content
+    const aiText = info?.aiData?.choices[0].message.content
 
-    const aiTextParagraphs = aiText.split(/\n\n/); // Split on two consecutive newlines
+    const aiTextParagraphs = aiText?.split(/\n\n/); // Split on two consecutive newlines
 
     let factsText;
     let thingsToDoText;
 
-    if (aiTextParagraphs.length === 2) {
+    if (aiTextParagraphs?.length === 2) {
         factsText = aiTextParagraphs[0].trim();
         thingsToDoText = aiTextParagraphs[1].trim();
-    } else {
-        // Handle case where no line break found (combine or handle error)
-        console.error("No line break found. Combining text.");
-        factsText = aiText;
-        thingsToDoText = ""; // Or set a default value
     }
 
 
