@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/EarthRoulette/static/css/main.baa1c8eb.css",
-    "main.js": "/EarthRoulette/static/js/main.51c80577.js",
+    "main.css": "/EarthRoulette/static/css/main.747c2a78.css",
+    "main.js": "/EarthRoulette/static/js/main.ff0624a8.js",
     "static/media/background.png": "/EarthRoulette/static/media/background.da653e42d7d1a6d4927c.png",
     "static/media/light-logo.png": "/EarthRoulette/static/media/light-logo.7b0e96d4f4811caf2e78.png",
     "index.html": "/EarthRoulette/index.html",
-    "main.baa1c8eb.css.map": "/EarthRoulette/static/css/main.baa1c8eb.css.map",
-    "main.51c80577.js.map": "/EarthRoulette/static/js/main.51c80577.js.map"
+    "main.747c2a78.css.map": "/EarthRoulette/static/css/main.747c2a78.css.map",
+    "main.ff0624a8.js.map": "/EarthRoulette/static/js/main.ff0624a8.js.map"
   },
   "entrypoints": [
-    "static/css/main.baa1c8eb.css",
-    "static/js/main.51c80577.js"
+    "static/css/main.747c2a78.css",
+    "static/js/main.ff0624a8.js"
   ]
 }
