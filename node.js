@@ -4,9 +4,6 @@ const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config();
 
-const countriesLocal = require('/Users/enrique/Desktop/Projects/earthroulette/src/components/countries.json');
-
-
 const app = express();
 
 app.use(cors())
