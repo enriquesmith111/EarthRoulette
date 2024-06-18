@@ -117,7 +117,7 @@ function CountryImage({ info, loading }) {
         fetchRandomCountryImage();
     }, [country, info]);
 
-    const handleImageClick = () => {
+    const handleImageClickRight = () => {
         // Handle potential edge cases (no images or last image reached)
         if (images.length === 0) {
             console.error('No images available for this country');
@@ -129,13 +129,28 @@ function CountryImage({ info, loading }) {
         setImageUrl(images[nextIndex]);
     };
 
+    const handleImageClickLeft = () => {
+        // Handle potential edge cases (no images or last image reached)
+        if (images.length === 0) {
+            console.error('No images available for this country');
+            return;
+        }
+
+        const nextIndex = (imageIndex === 0 ? images.length - 1 : imageIndex - 1) % images.length;
+        setImageIndex(nextIndex);
+        setImageUrl(images[nextIndex]);
+    };
+
     return (
         <div className={`country-image ${loadingClass}`}>
             {imageUrl ? (
                 <>
                     <img src={imageUrl} alt="Random Country" />
-                    <button className="image-change-btn">
-                        <i onClick={handleImageClick} class="fa-solid fa-angles-right"></i>
+                    <button className="image-change-btn-right">
+                        <i onClick={handleImageClickRight} class="fa-solid fa-angles-right"></i>
+                    </button>
+                    <button className="image-change-btn-left">
+                        <i onClick={handleImageClickLeft} class="fa-solid fa-angles-left"></i>
                     </button>
                 </>
             ) : (

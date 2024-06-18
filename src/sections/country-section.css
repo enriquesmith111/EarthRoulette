@@ -78,24 +78,40 @@
     object-fit: cover;
 }
 
-.image-change-btn {
+.image-change-btn-right {
     border-color: transparent;
     border-radius: 5%;
     background-color: rgba(0, 0, 0, 0.513);
-    height: 80px;
+    height: 70px;
     align-items: center;
     position: absolute; /* Position the button absolutely within the image */
     cursor: pointer;
-    right: 5%;
+    right: 3%;
 }
 
-.image-change-btn:hover {
+.image-change-btn-right:hover {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.image-change-btn-left {
+    border-color: transparent;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.513);
+    height: 70px;
+    align-items: center;
+    position: absolute; /* Position the button absolutely within the image */
+    cursor: pointer;
+    left: 3%;
+}
+
+.image-change-btn-left:hover {
     outline: 0;
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
 
 i {
-    font-size: 40px;
+    font-size: 30px;
     color: rgba(255, 255, 255, 0.813);
 }
 
