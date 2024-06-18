@@ -12,6 +12,7 @@ app.use(cors())
 
 app.get('/info', async (req, res) => {
     const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+    let aiData = null;
 
     try {
 
@@ -55,8 +56,8 @@ app.get('/info', async (req, res) => {
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
-                messages: [{ role: 'user', content: `give me a pragraph of some general facts about ${randomCountry?.name.common} and best things to do on holiday` }],
-                max_tokens: 150,
+                messages: [{ role: 'user', content: `give me 2 paragraphs of some general facts about ${randomCountry?.name.common} and best things to do on holiday` }],
+                max_tokens: 300,
             })
         }
         const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options)

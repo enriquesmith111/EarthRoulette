@@ -12,6 +12,7 @@
   --lighter-contrast-color:  rgb(95, 103, 153);
   --button-text-color: white;
   --text-color: black;
+  --country-text-shadow: rgba(0, 0, 0, 0.198); 
 }
 
 
@@ -25,6 +26,8 @@
   --lighter-contrast-color: rgb(254, 239, 173);
   --button-text-color: black;
   --text-color: white;
+  --country-text-shadow: rgba(255, 255, 255, 0.074); 
+
 }
 
 

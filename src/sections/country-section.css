@@ -92,20 +92,25 @@
 .country-text {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 20rem;
     justify-content: flex-end;
 }
 
 .country-text h1 {
+    margin-bottom: -0.3rem;
     margin-left: 1rem;
 }
 
 .country-text p {
+    border-radius: 5px;
+    padding: 0.5rem;
+    overflow-y: scroll;
     font-size: 18px;
     width: 90%;
     margin: 1rem;
     text-align: justify;
 }
+
 @media (orientation: portrait) {
     .country-text p {
         margin: 1rem;
