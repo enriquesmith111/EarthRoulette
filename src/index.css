@@ -107,7 +107,7 @@ body {
 }
 
 .disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: no-drop; /* Indicate element is not clickable */
   pointer-events: none; /* Prevent user interaction */
 }

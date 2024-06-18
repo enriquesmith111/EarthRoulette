@@ -96,7 +96,7 @@ function CountryImage({ info, loading }) {
     const [imageUrl, setImageUrl] = useState(null);
     const [images, setImages] = useState([]);
     const [imageIndex, setImageIndex] = useState(0); // Track current image index
-    const loadingClass = loading ? 'loading' : '';
+    const loadingClass = loading ? 'loading disabled' : '';
 
 
     useEffect(() => {
@@ -142,14 +142,14 @@ function CountryImage({ info, loading }) {
     };
 
     return (
-        <div className={`country-image ${loadingClass}`}>
+        <div className={`country-image`}>
             {imageUrl ? (
                 <>
                     <img src={imageUrl} alt="Random Country" />
-                    <button className="image-change-btn-right">
+                    <button className={`image-change-btn-right ${loadingClass}`}>
                         <i onClick={handleImageClickRight} class="fa-solid fa-angles-right"></i>
                     </button>
-                    <button className="image-change-btn-left">
+                    <button className={`image-change-btn-left ${loadingClass}`}>
                         <i onClick={handleImageClickLeft} class="fa-solid fa-angles-left"></i>
                     </button>
                 </>
