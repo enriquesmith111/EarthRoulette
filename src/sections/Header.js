@@ -7,15 +7,18 @@ export default function Header() {
     const preference = window.matchMedia("(prefers-color-scheme: dark)").matches
     const [isLight, setIsLight] = useLocalStorage('isLight', preference)
 
+    const handleScrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <div className='header'>
-            <a href='#'>
-                <img
-                    src={isLight ? lightLogo : darkLogo}
-                    alt='paper-airplane-png'>
-                </img>
-            </a>
+            <img
+                onClick={handleScrollToTop}
+                src={isLight ? lightLogo : darkLogo}
+                alt='paper-airplane-png'>
+            </img>
+
 
             <Toggle
                 isChecked={isLight}

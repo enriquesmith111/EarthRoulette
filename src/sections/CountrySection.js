@@ -14,27 +14,21 @@ import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
 
 export default function CountrySection() {
-    const [error, setError] = useState(null);
     const [info, setInfo] = useState(null);
     const [loading, setLoading] = useState(null);
 
     // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
 
     const handleSpin = async () => {
-        try {
-            setLoading(true)
-            // Generate a random index within the countries array
-            const response = await axios.get(
-                `/info`
-            );
-            setInfo(response?.data)
-            setLoading(null)
-            console.log(response?.data)
 
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+        setLoading(true)
+        // Generate a random index within the countries array
+        const response = await axios.get(`/info`);
+        setInfo(response?.data)
+        setLoading(null)
+        console.log(response?.data)
+    }
+
 
     return (
         <div className='section'>
