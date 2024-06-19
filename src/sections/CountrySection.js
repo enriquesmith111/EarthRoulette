@@ -31,7 +31,7 @@ export default function CountrySection() {
             setLoading(null)
             console.log(response?.data)
 
-        } catch {
+        } catch (error) {
             setError(error.message);
         }
     };
@@ -40,7 +40,7 @@ export default function CountrySection() {
     return (
         <div className='section'>
             <div className='container' id='country-container'>
-                <InfoAndImage info={info} loading={loading} />
+                <InfoAndImage info={info} loading={loading} error={error} />
                 <div className='text-weather-buttons'>
                     <div className='country-text'>
                         <CountryText info={info} loading={loading} />
