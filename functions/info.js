@@ -78,3 +78,4 @@ app.get('/info', async (req, res) => {
 
 
 app.listen(8000, () => console.log(`server is running on ${PORT}`))
+exports.handler = app;
