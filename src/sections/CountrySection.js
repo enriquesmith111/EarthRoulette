@@ -18,15 +18,10 @@ export default function CountrySection() {
     const [info, setInfo] = useState(null);
     const [loading, setLoading] = useState(null);
 
-    // API TAKES TOO LONG TO RESPOND SO I COPIED THE JSON FILE AND ADDED IT TO PROJECT MANUALLY
-
     const handleSpin = async () => {
         try {
             setLoading(true)
-            // Generate a random index within the countries array
-            const response = await axios.get(
-                `/info`
-            );
+            const response = await axios.get(`/info`);
             setInfo(response?.data)
             setLoading(null)
             console.log(response?.data)
