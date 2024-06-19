@@ -98,7 +98,7 @@
     border-color: transparent;
     border-radius: 5%;
     background-color: rgba(0, 0, 0, 0.513);
-    height: 3.5;
+    height: 3.5rem;
     align-items: center;
     position: absolute; /* Position the button absolutely within the image */
     cursor: pointer;
