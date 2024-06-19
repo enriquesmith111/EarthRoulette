@@ -12,7 +12,6 @@ import RainNight from '../components/rain night.json'
 import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
-import countriesLocal from '../components/countries.json'
 
 export default function CountrySection() {
     const [error, setError] = useState(null);
@@ -381,7 +380,7 @@ function WeatherWeek({ daytime, info, loading }) {
 }
 
 function WeatherDay({ dayData, daytime, loading }) {
-    const weather = dayData.weather[0].main
+    const weather = dayData?.weather?.[0]?.main
     const loadingClass = loading ? 'loading' : '';
     const [weatherIcon, setWeatherIcon] = useState(null);
     const monthDay = dayData.dt_txt.slice(5, 10);
@@ -389,7 +388,7 @@ function WeatherDay({ dayData, daytime, loading }) {
     useEffect(() => {
         const getWeatherIcon = () => {
 
-            switch (dayData?.weather?.[0]?.main) { // Handle potential undefined values
+            switch (weather) { // Handle potential undefined values
                 case 'Clear':
                     return ClearSkyDay;
                 case 'Clouds':

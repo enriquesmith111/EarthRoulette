@@ -1,36 +1,12 @@
 import './hero-section.css'
 import EarthAnimation from '../components/Animation Earth.json'
 import EarthAnimationDark from '../components/Animation EarthDark.json'
-import PlaneAnimation from '../components/Animation plane.json'
 import Lottie from 'lottie-react'
 import useLocalStorage from 'use-local-storage'
-import axios from 'axios'
-import { useState } from 'react'
 
 export default function HeroSection() {
     const preference = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const [isLight, setIsLight] = useLocalStorage('isLight', preference);
-    const [country, setCountry] = useState(null);
-    const [error, setError] = useState(null);
-
-    // ... existing code for fetching country data (useEffect, etc.)
-
-    const handleSpin = async () => {
-        try {
-            const response = await axios.get('https://restcountries.com/v3.1/all');
-            const countries = response.data; // Array of all countries
-
-            // Generate a random index within the countries array
-            const randomIndex = Math.floor(Math.random() * countries.length);
-            const randomCountry = countries[randomIndex];
-
-            setCountry(randomCountry);
-            console.log('Fetched Country Data:', randomCountry.name.common); // Log the fetched country data
-        } catch (error) {
-            setError(error.message);
-            console.log('Error fetching country:', error); // Log the error object
-        }
-    };
 
     return (
         <div className='section'>
