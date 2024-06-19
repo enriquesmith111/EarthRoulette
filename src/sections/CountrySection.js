@@ -21,7 +21,7 @@ export default function CountrySection() {
     const handleSpin = async () => {
         try {
             setLoading(true)
-            const response = await axios.get(`https://earth-roulette.netlify.app/info`);
+            const response = await axios.get(`/info`);
             setInfo(response?.data)
             setLoading(null)
             console.log(response?.data)
