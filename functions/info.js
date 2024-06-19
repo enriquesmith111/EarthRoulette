@@ -13,6 +13,7 @@ exports.handler = async (event, context) => {
         statusCode: 200, // Set default status code
         headers: {
             'Content-Type': 'application/json', // Set default content type
+            'Access-Control-Allow-Origin': '*',
         },
         body: '',
     };
