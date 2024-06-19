@@ -26,11 +26,11 @@ export default function CountrySection() {
             setLoading(true)
             // Generate a random index within the countries array
             const response = await axios.get(
-                `http://localhost:8000/info`
+                `/info`
             );
-            console.log(response)
             setInfo(response?.data)
             setLoading(null)
+            console.log(response?.data)
 
         } catch (error) {
             setError(error.message);
@@ -424,20 +424,13 @@ function SpinButton({ onClick, info, loading }) {
     const loadingClass = loading ? 'loading disabled' : '';
 
     const handleButtonClick = async () => {
-        try {
-            // Simulate some work (replace with actual API call if needed)
-        } catch (error) {
-            console.error('Error simulating work:', error);
-            // Handle errors appropriately
-        } finally {
-            onClick(); // Call the original onClick handler after loading
-        }
+        onClick();
     };
 
     const buttonText = country ? 'Re-spin' : 'Spin';
     return (
         <>
-            <button className={`${loadingClass}`} onClick={handleButtonClick}>{buttonText}</button>
+            <button onClick={handleButtonClick}>{buttonText}</button>
         </>
     )
 }
