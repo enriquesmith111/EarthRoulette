@@ -7,8 +7,15 @@ const app = express();
 
 app.use(cors());
 
-async function getInfo(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your React app's origin(s)
+exports.handler = async (event, context) => {
+    const req = event; // Access the request object from the event
+    const res = {
+        statusCode: 200, // Set default status code
+        headers: {
+            'Content-Type': 'application/json', // Set default content type
+        },
+        body: '',
+    };
 
     try {
         const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
@@ -69,18 +76,12 @@ async function getInfo(req, res) {
             aiData: aiData,
         };
 
-        res.json(responseData);
+        res.body = JSON.stringify(responseData); // Set the response body
     } catch (error) {
         console.error('Error fetching countries info:', error);
-        res.status(500).json({ message: 'Internal Server Error' }); // Handle errors gracefully with a user-friendly message
+        res.statusCode = 500;
+        res.body = JSON.stringify({ message: 'Internal Server Error' });
     }
-}
 
-exports.handler = async (event, context) => {
-    const response = await new Promise((resolve, reject) => {
-        const req = express.request(event);
-        const res = express.response({ send: (data) => resolve(data) });
-        getInfo(req, res);
-    });
-    return response;
+    return res;
 };
