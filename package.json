@@ -12,7 +12,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "gh-pages": "^6.1.1",
     "local-storage": "^2.0.0",
     "lottie-react": "^2.4.0",
     "nodemon": "^3.1.3",
