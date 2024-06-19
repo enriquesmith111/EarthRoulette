@@ -26,7 +26,6 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start:backend": "nodemon node.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
