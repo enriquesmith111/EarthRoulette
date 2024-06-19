@@ -5,12 +5,10 @@ require('dotenv').config();
 
 const app = express();
 
-
 app.use(cors());
 
-
 app.get('/info', async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your React app's origin(s)
+    // res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your React app's origin(s)
 
     const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
 
