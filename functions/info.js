@@ -6,7 +6,14 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ['https://main--reliable-twilight-594580.netlify.app']; // Replace with your React app's actual origin
+const corsOptions = {
+    origin: allowedOrigins,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11) choke on 204
+}
+
+app.use(cors(corsOptions));
+
 
 app.get('/info', async (req, res) => {
     const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
@@ -76,6 +83,4 @@ app.get('/info', async (req, res) => {
 
 });
 
-
-app.listen(8000, () => console.log(`server is running on ${PORT}`))
 exports.handler = app;
