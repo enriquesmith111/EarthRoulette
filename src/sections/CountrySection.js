@@ -406,7 +406,7 @@ function WeatherDay({ dayData, daytime, loading }) {
         };
 
         setWeatherIcon(getWeatherIcon());
-    }, [dayData, daytime]);
+    }, [dayData, daytime, weather]);
 
     return (
         <div className='day-weather-of-week'>
