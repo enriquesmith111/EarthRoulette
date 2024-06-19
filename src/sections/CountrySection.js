@@ -423,7 +423,7 @@ function SpinButton({ onClick, info, loading }) {
     const buttonText = country ? 'Re-spin' : 'Spin';
     return (
         <>
-            <button onClick={handleButtonClick}>{buttonText}</button>
+            <button className={`${loadingClass}`} onClick={handleButtonClick}>{buttonText}</button>
         </>
     )
 }

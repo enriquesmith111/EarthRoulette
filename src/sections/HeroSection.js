@@ -6,7 +6,7 @@ import useLocalStorage from 'use-local-storage'
 
 export default function HeroSection() {
     const preference = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const [isLight, setIsLight] = useLocalStorage('isLight', preference);
+    const [isLight] = useLocalStorage('isLight', preference);
 
     return (
         <div className='section'>
