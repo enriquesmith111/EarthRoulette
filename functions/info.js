@@ -19,7 +19,6 @@ exports.handler = async (event, context) => {
     };
 
     try {
-        const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
 
         // Attempt to fetch random country from live API
         const response = await axios.get('https://restcountries.com/v3.1/all');
@@ -28,7 +27,7 @@ exports.handler = async (event, context) => {
 
         // Attempt to fetch random country image
         const randomCountry = countries[randomIndex];
-        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${apiKey}`;
+        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
 
         // Attempt to fetch random Country capital day weather
         const api = {
