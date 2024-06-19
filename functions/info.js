@@ -7,12 +7,12 @@ const app = express();
 
 app.use(cors());
 
-app.get('/info', async (req, res) => {
-    // res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your React app's origin(s)
-
-    const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+async function getInfo(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your React app's origin(s)
 
     try {
+        const apiKey = `${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+
         // Attempt to fetch random country from live API
         const response = await axios.get('https://restcountries.com/v3.1/all');
         const countries = response.data;
@@ -20,7 +20,7 @@ app.get('/info', async (req, res) => {
 
         // Attempt to fetch random country image
         const randomCountry = countries[randomIndex];
-        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${apiKey}`
+        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${apiKey}`;
 
         // Attempt to fetch random Country capital day weather
         const api = {
@@ -44,7 +44,7 @@ app.get('/info', async (req, res) => {
         const responseWeek = await fetch(`${weekApi.base}${location}&units=metric&appid=${weekApi.key}`);
         const resultsWeek = await responseWeek.json();
 
-        // Attemp to fetch openAi country info
+        // Attempt to fetch openAi country info
         const options = {
             method: 'POST',
             headers: {
@@ -56,11 +56,11 @@ app.get('/info', async (req, res) => {
                 messages: [{ role: 'user', content: `give me 2 paragraphs of some general facts about ${randomCountry?.name.common} and best things to do on holiday` }],
                 max_tokens: 300,
             })
-        }
-        const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options)
-        const aiData = await responseAI.json()
+        };
+        const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options);
+        const aiData = await responseAI.json();
 
-        // save data in json object
+        // Save data in JSON object
         const responseData = {
             country: randomCountry,
             imageUrl,
@@ -70,11 +70,17 @@ app.get('/info', async (req, res) => {
         };
 
         res.json(responseData);
-
     } catch (error) {
         console.error('Error fetching countries info:', error);
+        res.status(500).json({ message: 'Internal Server Error' }); // Handle errors gracefully with a user-friendly message
     }
+}
 
-});
-
-exports.handler = app;
+exports.handler = async (event, context) => {
+    const response = await new Promise((resolve, reject) => {
+        const req = express.request(event);
+        const res = express.response({ send: (data) => resolve(data) });
+        getInfo(req, res);
+    });
+    return response;
+};
