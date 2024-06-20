@@ -19,4 +19,4 @@ It utilizes serverless functions to handle API requests efficiently and securely
 <strong>OpenAI API:</strong> Generates a descriptive summary with facts and travel recommendations. <br>
 <strong>Skyscanner API:</strong> Enables users to search for and potentially book flights. <br><br>
 
-This project utilizes modern React for a dynamic and user-friendly frontend experience. <br>
+<strong>This project utilizes modern React for a dynamic and user-friendly frontend experience.</strong> <br>
