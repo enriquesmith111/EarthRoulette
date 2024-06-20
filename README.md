@@ -8,10 +8,8 @@ This project is a React web application with a serverless Node.js backend design
 <strong>Weather Information:</strong> Provides current and weekly weather forecasts for the capital city, allowing users to pack accordingly. <br>
 <strong>OpenAI Insights:</strong> Leveraging the OpenAI API, Earth Roulette generates a descriptive summary of the country, including interesting facts and recommended activities for visitors. <br>
 <strong>Seamless Flight Booking:</strong> Integrated with the Skyscanner API, users can easily search and potentially book flights to their chosen destination with just a few clicks. <br>
-Backend (Serverless Node.js): <br>
-
-The serverless Node.js backend acts as a central hub for fetching data from various APIs and packages them into a JSON for the front-end to fetch each time the User spins for a random Country. <br>
-It utilizes serverless functions to handle API requests efficiently and securely.
+<strong>Backend (Serverless Node.js):</strong> The serverless Node.js backend acts as a central hub for fetching data from various APIs and packages them into a JSON for the front-end to fetch each time the User spins for a random Country. 
+It utilizes serverless functions to handle API requests efficiently and securely. <br>
 
 <strong>APIs Used:</strong>
 
