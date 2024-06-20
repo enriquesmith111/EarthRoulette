@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+Earth Roulette: Random Destination Picker (React & Serverless Node.js)
+This project is a React web application with a serverless Node.js backend designed to help users discover their next travel destination in a fun and spontaneous way.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features:
 
-## Available Scripts
+Random Country Selection: Users spin the roulette to be surprised by a random country or territory from a list of over 250 different regions.
+Immersive Experience: A beautiful carousel of images from the Unsplash API showcases the chosen country's landscapes and culture.
+Weather Information: Provides current and weekly weather forecasts for the capital city, allowing users to pack accordingly.
+OpenAI Insights: Leveraging the OpenAI API, Earth Roulette generates a descriptive summary of the country, including interesting facts and recommended activities for visitors.
+Seamless Flight Booking: Integrated with the Skyscanner API, users can easily search and potentially book flights to their chosen destination with just a few clicks.
+Backend (Serverless Node.js):
 
-In the project directory, you can run:
+The serverless Node.js backend acts as a central hub for fetching data from various APIs and packages them into a JSON for the front-end to fetch each time the User spins for a random Country. It utilizes serverless functions to handle API requests efficiently and securely.
 
-### `npm start`
+APIs Used:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+RestfulCountries API: Provides basic information and random country selection.
+Unsplash API: Delivers captivating images of the chosen country.
+OpenWeather API: Retrieves current and weekly weather data for the country's capital.
+OpenAI API: Generates a descriptive summary with facts and travel recommendations.
+Skyscanner API: Enables users to search for and potentially book flights.
+This project utilizes modern React for a dynamic and user-friendly frontend experience.
