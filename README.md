@@ -17,5 +17,6 @@ It utilizes serverless functions to handle API requests efficiently and securely
 <strong>Unsplash API:</strong> Delivers captivating images of the chosen country. <br>
 <strong>OpenWeather API:</strong> Retrieves current and weekly weather data for the country's capital. <br>
 <strong>OpenAI API:</strong> Generates a descriptive summary with facts and travel recommendations. <br>
-<strong>Skyscanner API:</strong> Enables users to search for and potentially book flights. <br>
+<strong>Skyscanner API:</strong> Enables users to search for and potentially book flights. <br><br>
+
 This project utilizes modern React for a dynamic and user-friendly frontend experience. <br>
