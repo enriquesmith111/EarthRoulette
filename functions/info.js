@@ -4,7 +4,6 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-// const port = process.env.PORT || 8000;
 
 app.use(cors());
 
@@ -18,20 +17,17 @@ exports.handler = async (event, context) => {
         },
         body: '',
     };
-    // app.get('/info', async (req, res) => {
 
     try {
 
         // Attempt to fetch random country from live API
         const response = await axios.get('https://restcountries.com/v3.1/all');
-        console.log('country api')
         const countries = response.data;
         const randomIndex = Math.floor(Math.random() * countries.length);
 
         // Attempt to fetch random country image
         const randomCountry = countries[randomIndex];
         const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
-        console.log('unsplash api')
 
         // Attempt to fetch random Country capital day weather
         const api = {
@@ -44,18 +40,16 @@ exports.handler = async (event, context) => {
 
         const responseWeather = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
         const weatherResults = await responseWeather.json();
-        console.log('day weather api')
 
         // Attempt to fetch random Country capital week weather
         const location = randomCountry?.capital;
         const weekApi = {
-            key: `${process.env.REACT_APP_WEATHER_API_KEY}`,
+            key: '16842ae1a21473b7ab24bd137fd9b4b1',
             base: 'https://api.openweathermap.org/data/2.5/forecast?q=',
         };
 
         const responseWeek = await fetch(`${weekApi.base}${location}&units=metric&appid=${weekApi.key}`);
         const resultsWeek = await responseWeek.json();
-        console.log('week weather api')
 
         // Attempt to fetch openAi country info
         const options = {
@@ -72,11 +66,14 @@ exports.handler = async (event, context) => {
         };
         const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options);
         const aiData = await responseAI.json();
-        console.log('chatgpt api')
 
         // attempt to fetch Geoapify boundaries API
-        const responseBoundary = await axios.get(`https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_1000&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`);
-        const boundaryData = await responseBoundary?.data;
+        var fetchBoundary = require('node-fetch');
+        var requestOptions = {
+            method: 'GET',
+        };
+        const responseBoundary = await fetchBoundary(`https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_1000&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`, requestOptions);
+        const boundaryData = await responseBoundary.json();
         console.log('border api')
         console.log(boundaryData);
 
@@ -87,7 +84,6 @@ exports.handler = async (event, context) => {
             weather: weatherResults,
             weatherWeek: resultsWeek,
             aiData: aiData,
-            boundary: boundaryData,
         };
 
         res.body = JSON.stringify(responseData); // Set the response body
