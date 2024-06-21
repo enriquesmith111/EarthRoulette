@@ -84,6 +84,7 @@ exports.handler = async (event, context) => {
             weather: weatherResults,
             weatherWeek: resultsWeek,
             aiData: aiData,
+            boundary: boundaryData,
         };
 
         res.body = JSON.stringify(responseData); // Set the response body
