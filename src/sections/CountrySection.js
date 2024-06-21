@@ -14,7 +14,7 @@ import Thunderstorm from '../components/thunderstorm.json'
 import axios from 'axios'
 
 export default function CountrySection() {
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
     const [info, setInfo] = useState(null);
     const [loading, setLoading] = useState(null);
 
