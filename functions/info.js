@@ -67,6 +67,7 @@ exports.handler = async (event, context) => {
         const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options);
         const aiData = await responseAI.json();
 
+
         // attempt to fetch Geoapify boundaries API
         var fetchBoundary = require('node-fetch');
         var requestOptions = {

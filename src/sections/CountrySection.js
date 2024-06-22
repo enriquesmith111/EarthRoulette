@@ -1,6 +1,8 @@
 import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
+import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
 import ClearSkyNight from '../components/clear sky night.json'
@@ -49,6 +51,7 @@ export default function CountrySection() {
                     </div>
                 </div>
             </div>
+            <Map info={info} loading={loading} />
         </div >
     )
 }
@@ -455,5 +458,33 @@ function SearchButton({ info, loading }) {
         <>
             <button className={`${loadingClass}`} onClick={handleSearchClick}>Search Flight</button>
         </>
+    )
+}
+
+function Map({ info, loading }) {
+    const lat = info?.country?.latlng[0];
+    const lng = info?.country?.latlng[1];
+
+
+    const RecenterAutomatically = ({ lat, lng }) => {
+        const map = useMap();
+        useEffect(() => {
+            map.setView([lat, lng]);
+        }, [lat, lng]);
+        return null;
+    }
+    return (
+        <div className='map-container'>
+            {info && (
+                <MapContainer center={[lat, lng]} zoom={3} scrollWheelZoom={false} style={{ height: '400px', width: '1000px' }}
+                >
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <RecenterAutomatically lat={lat} lng={lng} />
+                </MapContainer>
+            )}
+        </div>
     )
 }

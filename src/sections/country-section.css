@@ -1,4 +1,14 @@
 /* Left Section */
+.map {
+    height: 100%;
+    width: 100%;
+}
+
+.map-container {
+    height: 400px;
+    width: 1000px;
+}
+
 .country-info {
     display: flex;
     justify-content: center;
