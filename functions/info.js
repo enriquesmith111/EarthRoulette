@@ -73,7 +73,7 @@ exports.handler = async (event, context) => {
         var requestOptions = {
             method: 'GET',
         };
-        const responseBoundary = await fetchBoundary(`https://api.geoapify.com/v1/boundaries/consists-of?lon=${lon}&lat=${lat}&geometry=geometry_10000&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`, requestOptions);
+        const responseBoundary = await fetchBoundary(`https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_10000&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`, requestOptions);
         const boundaryData = await responseBoundary.json();
         console.log('border api')
         console.log(boundaryData);
