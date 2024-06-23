@@ -2,7 +2,6 @@ import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, useMap, GeoJSON } from 'react-leaflet'
-import * as L from 'leaflet';  // Import Leaflet
 import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
