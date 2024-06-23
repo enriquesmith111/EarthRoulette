@@ -501,7 +501,7 @@ function Map({ info, loading }) {
 
 
     return (
-        <div className='map-container'>
+        <div className={info ? 'map-container' : ''}>
             {info && (
                 <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
                 >
