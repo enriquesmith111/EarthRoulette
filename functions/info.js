@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
 
         // Attempt to fetch random country image
         const randomCountry = countries[randomIndex];
-        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}-food&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
 
         // Attempt to fetch random Country capital day weather
         const api = {

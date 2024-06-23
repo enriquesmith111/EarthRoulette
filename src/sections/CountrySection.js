@@ -51,7 +51,7 @@ export default function CountrySection() {
                     </div>
                 </div>
             </div>
-            <div className='container' style={{ marginTop: '120px' }}>
+            <div className='container' style={{ marginTop: '120px', marginBottom: '120px' }}>
                 <Map info={info} loading={loading} />
             </div>
         </div >
@@ -479,7 +479,6 @@ function Map({ info, loading }) {
         }
     }, [info?.boundary]);
 
-
     const OutlineColor = {
         stroke: true,
         color: "red",
@@ -503,13 +502,13 @@ function Map({ info, loading }) {
     return (
         <div className={info ? 'map-container' : ''}>
             {info && (
-                <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
+                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <RecenterAutomatically lat={lat} lng={lng} zoom={4.5} />
+                    <RecenterAutomatically lat={lat} lng={lng} zoom={3.5} />
                     {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                 </MapContainer>
             )}
