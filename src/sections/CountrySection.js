@@ -1,7 +1,8 @@
 import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, GeoJSON } from 'react-leaflet'
+import * as L from 'leaflet';  // Import Leaflet
 import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
@@ -51,7 +52,9 @@ export default function CountrySection() {
                     </div>
                 </div>
             </div>
-            <Map info={info} loading={loading} />
+            <div className='container' style={{ marginTop: '120px' }}>
+                <Map info={info} loading={loading} />
+            </div>
         </div >
     )
 }
@@ -462,27 +465,51 @@ function SearchButton({ info, loading }) {
 }
 
 function Map({ info, loading }) {
+    const [polygonData, setPolygonData] = useState(null);
+    const boundaries = info?.boundary;
+    const key = Date.now();
+    const zoom = 6
+
     const lat = info?.country?.latlng[0];
     const lng = info?.country?.latlng[1];
 
+    useEffect(() => {
+        if (info?.boundary) {
+            const boundaries = info?.boundary;
+            setPolygonData({ ...boundaries });
 
-    const RecenterAutomatically = ({ lat, lng }) => {
+        }
+    }, [info?.boundary]);
+
+    const OutlineColor = {
+        stroke: true,
+        color: "red",
+        weight: 3,
+        opacity: 0.7,
+        fill: false,
+        smoothFactor: 0.5,
+        interactive: false,
+    }
+
+    const RecenterAutomatically = ({ lat, lng, zoom }) => {
         const map = useMap();
         useEffect(() => {
-            map.setView([lat, lng]);
-        }, [lat, lng]);
+            map.setView([lat, lng], zoom);
+        }, [lat, lng, map, zoom]);
         return null;
     }
+
     return (
         <div className='map-container'>
             {info && (
-                <MapContainer center={[lat, lng]} zoom={3} scrollWheelZoom={false} style={{ height: '400px', width: '1000px' }}
+                <MapContainer center={[lat, lng]} zoom={zoom} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <RecenterAutomatically lat={lat} lng={lng} />
+                    <RecenterAutomatically lat={lat} lng={lng} zoom={zoom} />
+                    {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                 </MapContainer>
             )}
         </div>

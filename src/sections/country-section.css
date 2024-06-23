@@ -1,12 +1,20 @@
 /* Left Section */
 .map {
+    border-radius: 5%;
     height: 100%;
     width: 100%;
 }
 
+.leaflet-container {
+    border-radius: 5%;
+}
+
 .map-container {
-    height: 400px;
-    width: 1000px;
+    display: flex; /* Enable flexbox for alignment */
+    overflow: hidden;
+    border-radius: 5%;
+    height: 36rem;
+    width: 36rem;
 }
 
 .country-info {
