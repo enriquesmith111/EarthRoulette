@@ -468,7 +468,6 @@ function Map({ info, loading }) {
     const [polygonData, setPolygonData] = useState(null);
     const boundaries = info?.boundary;
     const key = Date.now();
-    const zoom = 6
 
     const lat = info?.country?.latlng[0];
     const lng = info?.country?.latlng[1];
@@ -481,6 +480,7 @@ function Map({ info, loading }) {
         }
     }, [info?.boundary]);
 
+
     const OutlineColor = {
         stroke: true,
         color: "red",
@@ -491,6 +491,7 @@ function Map({ info, loading }) {
         interactive: false,
     }
 
+
     const RecenterAutomatically = ({ lat, lng, zoom }) => {
         const map = useMap();
         useEffect(() => {
@@ -499,16 +500,17 @@ function Map({ info, loading }) {
         return null;
     }
 
+
     return (
         <div className='map-container'>
             {info && (
-                <MapContainer center={[lat, lng]} zoom={zoom} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
+                <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <RecenterAutomatically lat={lat} lng={lng} zoom={zoom} />
+                    <RecenterAutomatically lat={lat} lng={lng} zoom={4.5} />
                     {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                 </MapContainer>
             )}
