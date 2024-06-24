@@ -83,7 +83,7 @@ exports.handler = async (event, context) => {
                 },
                 { role: "user", content: `${randomCountry?.name.common}` },
                 ],
-                max_tokens: 100,
+                max_tokens: 200,
             })
         };
         const responseAIJSON = await fetch('https://api.openai.com/v1/chat/completions', optionsJSON);
