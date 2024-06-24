@@ -46,9 +46,9 @@ exports.handler = async (event, context) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'gpt-4o',
-                messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name?.common}` }],
-                max_tokens: 200,
+                model: 'gpt-3.5-turbo',
+                messages: [{ role: 'user', content: `give a paragraph of some general facts about ${randomCountry?.name?.common}` }],
+                max_tokens: 180,
             }),
         };
 
@@ -59,11 +59,11 @@ exports.handler = async (event, context) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'gpt-4o',
+                model: 'gpt-3.5-turbo',
                 response_format: { type: "json_object" },
                 messages: [{
                     role: "system",
-                    content: `You provide JSON object with longitude and latitude of up to 7 best cities or places to visit in a country following this JSON format: 
+                    content: `You provide a JSON object of up to 7 best cities or places to visit in a country following this format: 
                             {
                                 "locations": [
                                     {
