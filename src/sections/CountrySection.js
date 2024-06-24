@@ -453,7 +453,6 @@ function SearchButton({ info, loading }) {
 
 function Map({ info, loading }) {
     const [polygonData, setPolygonData] = useState(null);
-    const [initialZoom, setInitialZoom] = useState(4.5);
     const [markers, setMarkers] = useState([]);
     const boundaries = info?.boundary;
     const key = Date.now();
@@ -493,7 +492,7 @@ function Map({ info, loading }) {
 
         useEffect(() => {
             map.setView([lat, lng], initialZoom); // Set initial zoom on first render
-            setInitialZoom(4); // Reset initialZoom on each update
+            setInitialZoom(initialZoom); // Reset initialZoom on each update
         }, [lat, lng, map, initialZoom]); // Dependency array includes initialZoom for reset
 
         return null;
@@ -502,7 +501,7 @@ function Map({ info, loading }) {
     return (
         <div className={info ? 'map-container' : ''}>
             {polygonData && (
-                <MapContainer center={[lat, lng]} zoom={initialZoom} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}>
+                <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}>
                     {(
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
