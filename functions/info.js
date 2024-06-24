@@ -24,10 +24,12 @@ exports.handler = async (event, context) => {
         const response = await axios.get('https://restcountries.com/v3.1/all');
         const countries = response.data;
         const randomIndex = Math.floor(Math.random() * countries.length);
+        console.log('Countries API')
 
         // Attempt to fetch random country image
         const randomCountry = countries[randomIndex];
         const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+        console.log('Unsplash API')
 
         // Attempt to fetch random Country capital day weather
         const api = {
@@ -40,6 +42,7 @@ exports.handler = async (event, context) => {
 
         const responseWeather = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
         const weatherResults = await responseWeather.json();
+        console.log('Weather day API')
 
         // Attempt to fetch random Country capital week weather
         const location = randomCountry?.capital;
@@ -50,6 +53,7 @@ exports.handler = async (event, context) => {
 
         const responseWeek = await fetch(`${weekApi.base}${location}&units=metric&appid=${weekApi.key}`);
         const resultsWeek = await responseWeek.json();
+        console.log('Weather week API')
 
         // Attempt to fetch openAi country info
         const optionsText = {
@@ -66,6 +70,7 @@ exports.handler = async (event, context) => {
         };
         const responseAIText = await fetch('https://api.openai.com/v1/chat/completions', optionsText);
         const aiDataText = await responseAIText.json();
+        console.log('OpenAI text API')
 
         // Attempt to fetch openAi locations JSON 
         const optionsJSON = {
@@ -98,6 +103,7 @@ exports.handler = async (event, context) => {
         };
         const responseAIJSON = await fetch('https://api.openai.com/v1/chat/completions', optionsJSON);
         const aiDataJSON = await responseAIJSON.json();
+        console.log('OpenAI JSON API')
 
         // attempt to fetch Geoapify boundaries API
         var fetchBoundary = require('node-fetch');
@@ -107,7 +113,6 @@ exports.handler = async (event, context) => {
         const responseBoundary = await fetchBoundary(`https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_10000&boundary=political&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`, requestOptions);
         const boundaryData = await responseBoundary.json();
         console.log('border api')
-        console.log(boundaryData);
 
         // Save data in JSON object
         const responseData = {
