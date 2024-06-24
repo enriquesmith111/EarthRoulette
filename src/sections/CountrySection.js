@@ -481,7 +481,7 @@ function Map({ info, loading }) {
 
     const OutlineColor = {
         stroke: true,
-        color: "red",
+        color: "rgba(255, 0, 0, 0.8)",
         weight: 2,
         opacity: 0.7,
         fill: 'true',
