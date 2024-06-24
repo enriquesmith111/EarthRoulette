@@ -79,11 +79,12 @@ exports.handler = async (event, context) => {
                 response_format: { type: "json_object" },
                 messages: [{
                     role: "system",
-                    content: `You provide JSON object with longitude and latitude of up to 10 best cities or places to visit in a country following this JSON format: 
+                    content: `You provide JSON object with longitude and latitude of up to 7 best cities or places to visit in a country following this JSON format: 
                     {
                         "locations": [
                             {
                                 "name": "Koror",
+                                "description": "Koror City is the largest city and the commercial center in Palau, home to about half of the country's population, located on Koror Island",
                                 "latitude": 7.341944,
                                 "longitude": 134.479167
                             },
@@ -92,7 +93,7 @@ exports.handler = async (event, context) => {
                 },
                 { role: "user", content: `${randomCountry?.name.common}` },
                 ],
-                max_tokens: 400,
+                max_tokens: 500,
             })
         };
         const responseAIJSON = await fetch('https://api.openai.com/v1/chat/completions', optionsJSON);
