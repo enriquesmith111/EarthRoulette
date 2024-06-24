@@ -86,14 +86,13 @@ exports.handler = async (event, context) => {
             // Measure image API call time
             (async () => {
                 const startTime = performance.now();
-                const response = await fetch(imageUrl);
-                const fetchedImages = response.data.results.map(
-                    (result) => result.urls.regular
-                )
+                const response = await axios.get(imageUrl);
+                const unsplashData = await response.json();
                 const endTime = performance.now();
                 console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
-                return fetchedImages;
+                return unsplashData;
             })(),
+
 
             // Measure weather day API call time
             (async () => {
