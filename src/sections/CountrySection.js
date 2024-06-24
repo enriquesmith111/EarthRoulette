@@ -173,17 +173,6 @@ function CountryText({ info, loading }) {
     const loadingClass = loading ? 'loading' : '';
     const aiText = info?.aiData?.choices?.length > 0 ? info?.aiData.choices[0].message.content : null;
 
-    const aiTextParagraphs = aiText?.split(/\n\n/); // Split on two consecutive newlines
-
-    let factsText;
-    let thingsToDoText;
-
-    if (aiTextParagraphs?.length === 2) {
-        factsText = aiTextParagraphs[0].trim();
-        thingsToDoText = aiTextParagraphs[1].trim();
-    }
-
-
     useEffect(() => {
         const fetchTime = async () => {
             if (!country || !country.capital) return;
@@ -224,10 +213,7 @@ function CountryText({ info, loading }) {
                     </>
                 ) : (
                     <>
-                        {factsText}
-                        <br />
-                        <br />
-                        {thingsToDoText}
+                        {aiText}
                     </>
                 )}
             </p>

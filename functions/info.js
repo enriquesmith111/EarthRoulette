@@ -61,7 +61,7 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
                 messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name.common}` }],
-                max_tokens: 150,
+                max_tokens: 160,
             })
         };
         const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options);
