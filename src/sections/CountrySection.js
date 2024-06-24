@@ -533,7 +533,11 @@ const MarkerList = ({ markers }) => {
             {markers?.locations && (
                 <Marker key={marker.name} position={[marker.latitude, marker.longitude]} icon={customIcon}>
                     <Popup>
-                        <h1>{marker.name || marker.city || marker.place}</h1>
+                        <a href={`https://www.google.com/search?q=${marker.name}`}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <h1>{marker.name || marker.city || marker.place}</h1>
+                        </a>
                         <p>{marker.description}</p>
                     </Popup>
                 </Marker>
