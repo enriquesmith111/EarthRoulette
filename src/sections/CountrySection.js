@@ -473,7 +473,7 @@ function Map({ info, loading }) {
 
     useEffect(() => {
         if (info?.boundary) {
-            const boundaries = info?.boundary;
+            const boundaries = info?.boundary.features[info?.boundary.features.length - 1];
             setPolygonData({ ...boundaries });
 
         }
@@ -482,9 +482,9 @@ function Map({ info, loading }) {
     const OutlineColor = {
         stroke: true,
         color: "red",
-        weight: 3,
-        opacity: 0.5,
-        fill: false,
+        weight: 2,
+        opacity: 0.7,
+        fill: 'true',
         smoothFactor: 0.1,
         interactive: false,
     }
@@ -502,7 +502,7 @@ function Map({ info, loading }) {
     return (
         <div className={info ? 'map-container' : ''}>
             {info && (
-                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}
+                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={true} style={{ height: '36rem', width: '36rem' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
