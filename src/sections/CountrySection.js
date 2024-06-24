@@ -483,9 +483,9 @@ function Map({ info, loading }) {
         stroke: true,
         color: "red",
         weight: 3,
-        opacity: 0.7,
+        opacity: 0.5,
         fill: false,
-        smoothFactor: 0.5,
+        smoothFactor: 0.1,
         interactive: false,
     }
 
