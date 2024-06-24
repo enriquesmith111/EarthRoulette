@@ -104,8 +104,7 @@ function CountryImage({ info, loading }) {
     useEffect(() => {
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
-            const responseImage = await axios.get(info?.imageUrl)
-            const fetchedImages = responseImage.data.results.map(
+            const fetchedImages = info?.imageUrl.results.map(
                 (result) => result.urls.regular
             );
             setImages(fetchedImages); // Store all fetched image URLs
