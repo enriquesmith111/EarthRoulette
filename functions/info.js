@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
         const response = await axios.get('https://restcountries.com/v3.1/all');
         const countries = response.data;
         const randomIndex = Math.floor(Math.random() * countries.length);
-        console.log('Countries API')
+        console.log('Countries API');
 
         // varibles needed for apis below to fetch from country information
         const randomCountry = countries[randomIndex];
@@ -82,15 +82,7 @@ exports.handler = async (event, context) => {
         };
 
         // Initiate all API requests concurrently
-        const [imageResponse, weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
-            // Measure image API call time
-            (async () => {
-                const startTime = performance.now();
-                const response = await fetch(imageUrl);
-                const endTime = performance.now();
-                console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
-                return response;
-            })(),
+        const [weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
 
             // Measure weather day API call time
             (async () => {
@@ -143,7 +135,7 @@ exports.handler = async (event, context) => {
         // Save data in JSON object
         const responseData = {
             country: randomCountry,
-            imageUrl: imageResponse,
+            imageUrl,
             weather: weatherResponse,
             weatherWeek: weekWeatherResponse,
             aiData: aiTextResponse,
