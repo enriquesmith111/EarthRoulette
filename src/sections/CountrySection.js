@@ -1,7 +1,6 @@
 import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
-import L from 'leaflet';
 import { MapContainer, TileLayer, useMap, GeoJSON, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
@@ -463,15 +462,9 @@ function Map({ info, loading }) {
         if (info?.boundary) {
             const boundaries = info?.boundary.features[info?.boundary.features.length - 1];
             setPolygonData({ ...boundaries });
-
         }
     }, [info?.boundary]);
 
-    // L.Icon.Default.mergeOptions({
-    //     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    //     iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    //     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-    // });
 
     useEffect(() => {
         if (info?.aiJSON) {
