@@ -533,7 +533,8 @@ const MarkerList = ({ markers }) => {
             {markers?.locations && (
                 <Marker key={marker.name} position={[marker.latitude, marker.longitude]} icon={customIcon}>
                     <Popup>
-                        {marker.name || marker.city || marker.place}
+                        <h1>{marker.name || marker.city || marker.place}</h1>
+                        <p>{marker.description}</p>
                     </Popup>
                 </Marker>
             )}
