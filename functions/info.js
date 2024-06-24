@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-4o',
                 messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name?.common}` }],
                 max_tokens: 200,
             }),
@@ -59,7 +59,7 @@ exports.handler = async (event, context) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-4o',
                 response_format: { type: "json_object" },
                 messages: [{
                     role: "system",
@@ -143,13 +143,13 @@ exports.handler = async (event, context) => {
 
         // Save data in JSON object
         const responseData = {
-            country: randomCountry,
-            imageUrl: imageResponse,
-            weather: weatherResponse,
+            countryInfo: randomCountry,
+            UnsplashImages: imageResponse,
+            weatherDay: weatherResponse,
             weatherWeek: weekWeatherResponse,
-            aiData: aiTextResponse,
-            aiJSON: aiJsonResponse,
-            boundary: geoapifyResponse,
+            aiDataText: aiTextResponse,
+            aiMarkersJSON: aiJsonResponse,
+            countryBorders: geoapifyResponse,
         };
 
         res.body = JSON.stringify(responseData);
