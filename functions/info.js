@@ -52,20 +52,20 @@ exports.handler = async (event, context) => {
         const resultsWeek = await responseWeek.json();
 
         // Attempt to fetch openAi country info
-        const optionsText = {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name.common}` }],
-                max_tokens: 200,
-            })
-        };
-        const responseAIText = await fetch('https://api.openai.com/v1/chat/completions', optionsText);
-        const aiDataText = await responseAIText.json();
+        // const optionsText = {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         model: 'gpt-3.5-turbo',
+        //         messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name.common}` }],
+        //         max_tokens: 200,
+        //     })
+        // };
+        // const responseAIText = await fetch('https://api.openai.com/v1/chat/completions', optionsText);
+        // const aiDataText = await responseAIText.json();
 
         // Attempt to fetch openAi cities JSON
         const optionsJSON = {
@@ -106,7 +106,7 @@ exports.handler = async (event, context) => {
             imageUrl,
             weather: weatherResults,
             weatherWeek: resultsWeek,
-            aiData: aiDataText,
+            // aiData: aiDataText,
             aiJSON: aiDataJSON,
             boundary: boundaryData,
         };
