@@ -87,7 +87,7 @@ exports.handler = async (event, context) => {
             (async () => {
                 const startTime = performance.now();
                 const response = await axios.get(imageUrl);
-                const unsplashData = response.data;
+                const unsplashData = response.data.results;
                 const endTime = performance.now();
                 console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
                 return unsplashData;
@@ -143,13 +143,13 @@ exports.handler = async (event, context) => {
 
         // Save data in JSON object
         const responseData = {
-            countryInfo: randomCountry,
-            UnsplashImages: imageResponse,
-            weatherDay: weatherResponse,
+            country: randomCountry,
+            imageUrl: imageResponse,
+            weather: weatherResponse,
             weatherWeek: weekWeatherResponse,
-            aiDataText: aiTextResponse,
-            aiMarkersJSON: aiJsonResponse,
-            countryBorders: geoapifyResponse,
+            aiData: aiTextResponse,
+            aiJSON: aiJsonResponse,
+            boundary: geoapifyResponse,
         };
 
         res.body = JSON.stringify(responseData);

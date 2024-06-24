@@ -35,7 +35,6 @@ export default function CountrySection() {
         }
     };
 
-
     return (
         <div className='section'>
             <div className='container' id='country-container'>
@@ -104,7 +103,7 @@ function CountryImage({ info, loading }) {
     useEffect(() => {
         const fetchRandomCountryImage = async () => {
             if (!country) return; // Don't fetch if country is not available
-            const fetchedImages = info?.imageUrl.results.map(
+            const fetchedImages = info?.imageUrl.map(
                 (result) => result.urls.regular
             );
             setImages(fetchedImages); // Store all fetched image URLs
