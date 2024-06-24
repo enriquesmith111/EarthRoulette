@@ -86,7 +86,7 @@ exports.handler = async (event, context) => {
             // Measure image API call time
             (async () => {
                 const startTime = performance.now();
-                const response = await axios.get(imageUrl);
+                const response = await fetch(imageUrl);
                 const endTime = performance.now();
                 console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
                 return response;
