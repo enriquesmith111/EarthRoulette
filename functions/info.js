@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
         const resultsWeek = await responseWeek.json();
 
         // Attempt to fetch openAi country info
-        const options = {
+        const optionsText = {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
@@ -64,8 +64,30 @@ exports.handler = async (event, context) => {
                 max_tokens: 200,
             })
         };
-        const responseAI = await fetch('https://api.openai.com/v1/chat/completions', options);
-        const aiData = await responseAI.json();
+        const responseAIText = await fetch('https://api.openai.com/v1/chat/completions', optionsText);
+        const aiDataText = await responseAIText.json();
+
+        // Attempt to fetch openAi cities JSON
+        const optionsJSON = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                response_format: { type: "json_object" },
+                messages: [{
+                    role: "system",
+                    content: "You provide JSON object with longitude and latitude of 5 best cities to visit in a country.",
+                },
+                { role: "user", content: `${randomCountry?.name.common}` },
+                ],
+                max_tokens: 100,
+            })
+        };
+        const responseAIJSON = await fetch('https://api.openai.com/v1/chat/completions', optionsJSON);
+        const aiDataJSON = await responseAIJSON.json();
 
 
         // attempt to fetch Geoapify boundaries API
@@ -84,7 +106,8 @@ exports.handler = async (event, context) => {
             imageUrl,
             weather: weatherResults,
             weatherWeek: resultsWeek,
-            aiData: aiData,
+            aiData: aiDataText,
+            aiJSON: aiDataJSON,
             boundary: boundaryData,
         };
 

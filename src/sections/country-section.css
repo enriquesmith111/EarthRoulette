@@ -161,6 +161,7 @@ i {
     border-radius: 5px;
     padding: 0.5rem;
     font-size: 18px;
+    overflow-y: scroll;
     width: 90%;
     margin: 1rem;
     text-align: justify;
