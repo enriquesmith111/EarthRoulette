@@ -464,6 +464,7 @@ function Map({ info, loading }) {
     useEffect(() => {
         if (info?.aiJSON) {
             const markers = info?.aiJSON?.choices[0]?.message?.content;
+            console.log(markers)
             const JSONMarker = JSON.parse(markers);
             setMarkers(JSONMarker);
         }
