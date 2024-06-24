@@ -1,7 +1,8 @@
 import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
-import { MapContainer, TileLayer, useMap, GeoJSON, Marker } from 'react-leaflet'
+import L from 'leaflet';
+import { MapContainer, TileLayer, useMap, GeoJSON, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
@@ -451,6 +452,7 @@ function SearchButton({ info, loading }) {
 
 function Map({ info, loading }) {
     const [polygonData, setPolygonData] = useState(null);
+    const [markers, setMarkers] = useState()
     const boundaries = info?.boundary;
     const key = Date.now();
 
@@ -465,6 +467,20 @@ function Map({ info, loading }) {
         }
     }, [info?.boundary]);
 
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+        iconUrl: require('leaflet/dist/images/marker-icon.png'),
+        shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+    });
+
+    useEffect(() => {
+        if (info?.aiJSON) {
+            const markers = info?.aiJSON.choices[0].message.content
+            const JSONMarker = JSON.parse(markers)
+            setMarkers(JSONMarker)
+        }
+    }, [info?.aiJSON]);
+
     const OutlineColor = {
         stroke: true,
         color: "rgba(255, 0, 0, 0.8)",
@@ -474,7 +490,6 @@ function Map({ info, loading }) {
         smoothFactor: 0.1,
         interactive: false,
     }
-
 
     const RecenterAutomatically = ({ lat, lng, zoom }) => {
         const map = useMap();
@@ -487,14 +502,20 @@ function Map({ info, loading }) {
 
     return (
         <div className={info ? 'map-container' : ''}>
-            {info && (
+            {polygonData && (
                 <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={true} style={{ height: '36rem', width: '36rem' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={[51.505, -0.09]} />
+                    {markers && markers.cities.map((marker) => (
+                        <Marker key={marker.name} position={[marker.latitude, marker.longitude]}>
+                            <Popup>
+                                {marker.name}
+                            </Popup>
+                        </Marker>
+                    ))}
                     <RecenterAutomatically lat={lat} lng={lng} zoom={3.5} />
                     {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                 </MapContainer>
