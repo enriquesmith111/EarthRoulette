@@ -143,7 +143,7 @@ exports.handler = async (event, context) => {
         // Save data in JSON object
         const responseData = {
             country: randomCountry,
-            imageUrl,
+            imageUrl: imageResponse,
             weather: weatherResponse,
             weatherWeek: weekWeatherResponse,
             aiData: aiTextResponse,
