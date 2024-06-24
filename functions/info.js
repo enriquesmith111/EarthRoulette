@@ -26,58 +26,37 @@ exports.handler = async (event, context) => {
         const randomIndex = Math.floor(Math.random() * countries.length);
         console.log('Countries API')
 
-        // Attempt to fetch random country image
+        // varibles needed for apis below to fetch from country information
         const randomCountry = countries[randomIndex];
-        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
-        console.log('Unsplash API')
-
-        // Attempt to fetch random Country capital day weather
-        const api = {
-            key: `${process.env.REACT_APP_WEATHER_API_KEY}`,
-            base: 'https://api.openweathermap.org/data/2.5/',
-        };
-
         const lat = randomCountry?.capitalInfo.latlng[0];
         const lon = randomCountry?.capitalInfo.latlng[1];
-
-        const responseWeather = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`);
-        const weatherResults = await responseWeather.json();
-        console.log('Weather day API')
-
-        // Attempt to fetch random Country capital week weather
         const location = randomCountry?.capital;
-        const weekApi = {
-            key: '16842ae1a21473b7ab24bd137fd9b4b1',
-            base: 'https://api.openweathermap.org/data/2.5/forecast?q=',
-        };
 
-        const responseWeek = await fetch(`${weekApi.base}${location}&units=metric&appid=${weekApi.key}`);
-        const resultsWeek = await responseWeek.json();
-        console.log('Weather week API')
+        // Prepare API endpoints
+        const imageUrl = `https://api.unsplash.com/search/photos?query=${randomCountry?.name?.common}&random&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`;
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`;
+        const weekWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
+        const geoapifyUrl = `https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_10000&boundary=political&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`;
 
-        // Attempt to fetch openAi country info
-        const optionsText = {
+        // OpenAI requests
+        const aiTextOptions = {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
-                messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name.common}` }],
+                messages: [{ role: 'user', content: `give me a paragraph of some general facts about ${randomCountry?.name?.common}` }],
                 max_tokens: 200,
-            })
+            }),
         };
-        const responseAIText = await fetch('https://api.openai.com/v1/chat/completions', optionsText);
-        const aiDataText = await responseAIText.json();
-        console.log('OpenAI text API')
 
-        // Attempt to fetch openAi locations JSON 
-        const optionsJSON = {
+        const aiJsonOptions = {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${process.env.REACT_APP_OPEN_AI_API_KEY}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
@@ -85,47 +64,48 @@ exports.handler = async (event, context) => {
                 messages: [{
                     role: "system",
                     content: `You provide JSON object with longitude and latitude of up to 7 best cities or places to visit in a country following this JSON format: 
-                    {
-                        "locations": [
                             {
-                                "name": "Koror",
-                                "description": "Koror City is the largest city and the commercial center in Palau, home to about half of the country's population, located on Koror Island",
-                                "latitude": 7.341944,
-                                "longitude": 134.479167
-                            },
-                        ]
-                    }`,
+                                "locations": [
+                                    {
+                                        "name": "Koror",
+                                        "description": "Koror City is the largest city and the commercial center in Palau, home to about half of the country's population, located on Koror Island",
+                                        "latitude": 7.341944,
+                                        "longitude": 134.479167
+                                    },
+                                ]
+                            }`,
                 },
-                { role: "user", content: `${randomCountry?.name.common}` },
+                { role: "user", content: `${randomCountry?.name?.common}` },
                 ],
                 max_tokens: 500,
-            })
+            }),
         };
-        const responseAIJSON = await fetch('https://api.openai.com/v1/chat/completions', optionsJSON);
-        const aiDataJSON = await responseAIJSON.json();
-        console.log('OpenAI JSON API')
 
-        // attempt to fetch Geoapify boundaries API
-        var fetchBoundary = require('node-fetch');
-        var requestOptions = {
-            method: 'GET',
-        };
-        const responseBoundary = await fetchBoundary(`https://api.geoapify.com/v1/boundaries/part-of?lon=${lon}&lat=${lat}&geometry=geometry_10000&boundary=political&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`, requestOptions);
-        const boundaryData = await responseBoundary.json();
-        console.log('border api')
+        // Initiate all API requests concurrently
+        const [imageResponse, weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
+            axios.get(imageUrl),
+            fetch(weatherUrl).then(res => res.json()),
+            fetch(weekWeatherUrl).then(res => res.json()),
+            fetch('https://api.openai.com/v1/chat/completions', aiTextOptions).then(res => res.json()),
+            fetch('https://api.openai.com/v1/chat/completions', aiJsonOptions).then(res => res.json()),
+            fetch(geoapifyUrl).then(res => res.json()),
+        ]);
+
+        console.log('All APIs fetched');
 
         // Save data in JSON object
         const responseData = {
             country: randomCountry,
-            imageUrl,
-            weather: weatherResults,
-            weatherWeek: resultsWeek,
-            aiData: aiDataText,
-            aiJSON: aiDataJSON,
-            boundary: boundaryData,
+            imageUrl: imageResponse.data,
+            weather: weatherResponse,
+            weatherWeek: weekWeatherResponse,
+            aiData: aiTextResponse,
+            aiJSON: aiJsonResponse,
+            boundary: geoapifyResponse,
         };
 
-        res.body = JSON.stringify(responseData); // Set the response body
+        res.body = JSON.stringify(responseData);
+
     } catch (error) {
         console.error('Error fetching countries info:', error);
         res.statusCode = 500;
