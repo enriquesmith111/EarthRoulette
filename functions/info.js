@@ -83,12 +83,59 @@ exports.handler = async (event, context) => {
 
         // Initiate all API requests concurrently
         const [imageResponse, weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
-            axios.get(imageUrl), console.log('image'),
-            fetch(weatherUrl).then(res => res.json()), console.log('weather day api'),
-            fetch(weekWeatherUrl).then(res => res.json()), console.log('weather week api'),
-            fetch('https://api.openai.com/v1/chat/completions', aiTextOptions).then(res => res.json()), console.log('openapi text'),
-            fetch('https://api.openai.com/v1/chat/completions', aiJsonOptions).then(res => res.json()), console.log('openapi json'),
-            fetch(geoapifyUrl).then(res => res.json()), console.log('boundaries api'),
+            // Measure image API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await axios.get(imageUrl);
+                const endTime = performance.now();
+                console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
+
+            // Measure weather day API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch(weatherUrl).then(res => res.json());
+                const endTime = performance.now();
+                console.log(`Weather day API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
+
+            // Measure weather week API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch(weekWeatherUrl).then(res => res.json());
+                const endTime = performance.now();
+                console.log(`Weather week API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
+
+            // Measure OpenAI text API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch('https://api.openai.com/v1/chat/completions', aiTextOptions).then(res => res.json());
+                const endTime = performance.now();
+                console.log(`OpenAI Text API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
+
+            // Measure OpenAI JSON API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch('https://api.openai.com/v1/chat/completions', aiJsonOptions).then(res => res.json());
+                const endTime = performance.now();
+                console.log(`OpenAI JSON API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
+
+            // Measure Geoapify API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch(geoapifyUrl).then(res => res.json());
+                const endTime = performance.now();
+                console.log(`Geoapify API: ${(endTime - startTime).toFixed(2)}ms`);
+                return response;
+            })(),
         ]);
 
         console.log('All APIs fetched');
