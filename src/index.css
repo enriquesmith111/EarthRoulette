@@ -6,7 +6,7 @@
   --night-gradient: linear-gradient(to top, #7e83ab, #413e61);
   --day-gradient: linear-gradient(to top, #f0cc6f, #dda91a);
   --background-color: rgb(186, 197, 200, 0.80);
-  --darker-contrast-color: #f08934;
+  --darker-contrast-color: rgb(240, 137, 52);
   --dark-contrast-color: rgb(255, 203, 161);
   --light-contrast-color:  rgb(47, 57, 112);
   --lighter-contrast-color:  rgb(95, 103, 153);
