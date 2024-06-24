@@ -2,6 +2,7 @@ import './country-section.css'
 import Lottie from 'lottie-react'
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, useMap, GeoJSON, Marker, Popup } from 'react-leaflet'
+import L from 'leaflet'; // Import icon function
 import 'leaflet/dist/leaflet.css'
 import BoardingPass from '../components/Animation Boarding Pass.json'
 import ClearSkyDay from '../components/ clear sky day.json'
@@ -13,6 +14,7 @@ import RainDay from '../components/rain day.json'
 import RainNight from '../components/rain night.json'
 import Snow from '../components/snow.json'
 import Thunderstorm from '../components/thunderstorm.json'
+import MapPin from '../components/map-pin.png'
 import axios from 'axios'
 
 export default function CountrySection() {
@@ -451,6 +453,7 @@ function SearchButton({ info, loading }) {
 
 function Map({ info, loading }) {
     const [polygonData, setPolygonData] = useState(null);
+    const [initialZoom, setInitialZoom] = useState(4.5);
     const [markers, setMarkers] = useState([]);
     const boundaries = info?.boundary;
     const key = Date.now();
@@ -462,7 +465,6 @@ function Map({ info, loading }) {
     useEffect(() => {
         if (info?.aiJSON) {
             const markers = info?.aiJSON?.choices[0]?.message?.content;
-            console.log(markers)
             const JSONMarker = JSON.parse(markers);
             setMarkers(JSONMarker);
         }
@@ -486,26 +488,30 @@ function Map({ info, loading }) {
     }
 
     const RecenterAutomatically = ({ lat, lng }) => {
-        const mapUse = useMap();
+        const map = useMap();
+        const [initialZoom, setInitialZoom] = useState(4); // Store initial zoom state
+
         useEffect(() => {
-            mapUse.setView([lat, lng]);
-        }, [lat, lng, mapUse]);
+            map.setView([lat, lng], initialZoom); // Set initial zoom on first render
+            setInitialZoom(4); // Reset initialZoom on each update
+        }, [lat, lng, map, initialZoom]); // Dependency array includes initialZoom for reset
+
         return null;
-    }
+    };
 
     return (
         <div className={info ? 'map-container' : ''}>
             {polygonData && (
-                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={true} style={{ height: '36rem', width: '36rem' }}>
+                <MapContainer center={[lat, lng]} zoom={initialZoom} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}>
                     {(
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                         />
                     )}
-                    <RecenterAutomatically lat={lat} lng={lng} zoom={3.5} />
-                    {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                     <MarkerList markers={markers} />
+                    <RecenterAutomatically lat={lat} lng={lng} />
+                    {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
                 </MapContainer>
             )}
         </div>
@@ -515,11 +521,17 @@ function Map({ info, loading }) {
 const MarkerList = ({ markers }) => {
     console.log(markers)
 
+    const customIcon = L.icon({
+        iconUrl: MapPin, // Replace with your PNG path
+        iconSize: [32, 32], // Adjust size as needed
+        iconAnchor: [16, 32], // Anchor point for marker positioning
+        popupAnchor: [-0, -32], // Offset for popup relative to marker
+    });
 
-    return markers?.places.map((marker) => (
+    return markers?.locations.map((marker) => (
         <>
-            {markers && (
-                <Marker key={marker.name} position={[marker.latitude, marker.longitude]}>
+            {markers?.locations && (
+                <Marker key={marker.name} position={[marker.latitude, marker.longitude]} icon={customIcon}>
                     <Popup>
                         {marker.name || marker.city || marker.place}
                     </Popup>
