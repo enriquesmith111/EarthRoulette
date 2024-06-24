@@ -451,12 +451,22 @@ function SearchButton({ info, loading }) {
 
 function Map({ info, loading }) {
     const [polygonData, setPolygonData] = useState(null);
-    const [markers, setMarkers] = useState()
+    const [markers, setMarkers] = useState([]);
     const boundaries = info?.boundary;
     const key = Date.now();
 
     const lat = info?.country?.latlng[0];
     const lng = info?.country?.latlng[1];
+
+
+    useEffect(() => {
+        if (info?.aiJSON) {
+            const markers = info?.aiJSON?.choices[0]?.message?.content;
+            console.log(markers)
+            const JSONMarker = JSON.parse(markers);
+            setMarkers(JSONMarker);
+        }
+    }, [info?.aiJSON]);
 
     useEffect(() => {
         if (info?.boundary) {
@@ -464,15 +474,6 @@ function Map({ info, loading }) {
             setPolygonData({ ...boundaries });
         }
     }, [info?.boundary]);
-
-
-    useEffect(() => {
-        if (info?.aiJSON) {
-            const markers = info?.aiJSON.choices[0].message.content
-            const JSONMarker = JSON.parse(markers)
-            setMarkers(JSONMarker)
-        }
-    }, [info?.aiJSON]);
 
     const OutlineColor = {
         stroke: true,
@@ -484,35 +485,46 @@ function Map({ info, loading }) {
         interactive: false,
     }
 
-    const RecenterAutomatically = ({ lat, lng, zoom }) => {
-        const map = useMap();
+    const RecenterAutomatically = ({ lat, lng }) => {
+        const mapUse = useMap();
         useEffect(() => {
-            map.setView([lat, lng], zoom);
-        }, [lat, lng, map, zoom]);
+            mapUse.setView([lat, lng]);
+        }, [lat, lng, mapUse]);
         return null;
     }
-
 
     return (
         <div className={info ? 'map-container' : ''}>
             {polygonData && (
-                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={true} style={{ height: '36rem', width: '36rem' }}
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {markers && markers.cities.map((marker) => (
-                        <Marker key={marker.name} position={[marker.latitude, marker.longitude]}>
-                            <Popup>
-                                {marker.name}
-                            </Popup>
-                        </Marker>
-                    ))}
+                <MapContainer center={[lat, lng]} zoom={3.5} scrollWheelZoom={true} style={{ height: '36rem', width: '36rem' }}>
+                    {(
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        />
+                    )}
                     <RecenterAutomatically lat={lat} lng={lng} zoom={3.5} />
                     {boundaries && <GeoJSON key={key} style={OutlineColor} data={polygonData} />}
+                    <MarkerList markers={markers} />
                 </MapContainer>
             )}
         </div>
     )
 }
+
+const MarkerList = ({ markers }) => {
+    console.log(markers)
+
+
+    return markers?.places.map((marker) => (
+        <>
+            {markers && (
+                <Marker key={marker.name} position={[marker.latitude, marker.longitude]}>
+                    <Popup>
+                        {marker.name || marker.city || marker.place}
+                    </Popup>
+                </Marker>
+            )}
+        </>
+    ));
+};

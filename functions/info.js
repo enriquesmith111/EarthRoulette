@@ -79,7 +79,16 @@ exports.handler = async (event, context) => {
                 response_format: { type: "json_object" },
                 messages: [{
                     role: "system",
-                    content: "You provide JSON object with longitude and latitude of 5 best cities or places to visit in a country.",
+                    content: `You provide JSON object with longitude and latitude of 5 best cities or places to visit in a country following this JSON format: 
+                    {
+                        "locations": [
+                            {
+                                "name": "Koror",
+                                "latitude": 7.341944,
+                                "longitude": 134.479167
+                            },
+                        ]
+                    }`,
                 },
                 { role: "user", content: `${randomCountry?.name.common}` },
                 ],
