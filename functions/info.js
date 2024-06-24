@@ -82,7 +82,18 @@ exports.handler = async (event, context) => {
         };
 
         // Initiate all API requests concurrently
-        const [weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
+        const [imageResponse, weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
+            // Measure image API call time
+            (async () => {
+                const startTime = performance.now();
+                const response = await fetch(imageUrl);
+                const fetchedImages = response.data.results.map(
+                    (result) => result.urls.regular
+                )
+                const endTime = performance.now();
+                console.log(`Image API: ${(endTime - startTime).toFixed(2)}ms`);
+                return fetchedImages;
+            })(),
 
             // Measure weather day API call time
             (async () => {
@@ -135,7 +146,7 @@ exports.handler = async (event, context) => {
         // Save data in JSON object
         const responseData = {
             country: randomCountry,
-            imageUrl,
+            imageUrl: imageResponse,
             weather: weatherResponse,
             weatherWeek: weekWeatherResponse,
             aiData: aiTextResponse,
