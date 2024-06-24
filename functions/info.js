@@ -83,12 +83,12 @@ exports.handler = async (event, context) => {
 
         // Initiate all API requests concurrently
         const [imageResponse, weatherResponse, weekWeatherResponse, aiTextResponse, aiJsonResponse, geoapifyResponse] = await Promise.all([
-            axios.get(imageUrl),
-            fetch(weatherUrl).then(res => res.json()),
-            fetch(weekWeatherUrl).then(res => res.json()),
-            fetch('https://api.openai.com/v1/chat/completions', aiTextOptions).then(res => res.json()),
-            fetch('https://api.openai.com/v1/chat/completions', aiJsonOptions).then(res => res.json()),
-            fetch(geoapifyUrl).then(res => res.json()),
+            axios.get(imageUrl), console.log('image'),
+            fetch(weatherUrl).then(res => res.json()), console.log('weather day api'),
+            fetch(weekWeatherUrl).then(res => res.json()), console.log('weather week api'),
+            fetch('https://api.openai.com/v1/chat/completions', aiTextOptions).then(res => res.json()), console.log('openapi text'),
+            fetch('https://api.openai.com/v1/chat/completions', aiJsonOptions).then(res => res.json()), console.log('openapi json'),
+            fetch(geoapifyUrl).then(res => res.json()), console.log('boundaries api'),
         ]);
 
         console.log('All APIs fetched');
