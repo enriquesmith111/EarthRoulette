@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
                 response_format: { type: "json_object" },
                 messages: [{
                     role: "system",
-                    content: `You provide a JSON object of up to 7 best cities or places to visit in a country following this format: 
+                    content: `You provide a JSON object of up to 10 best cities or places to visit in a country following this format: 
                             {
                                 "locations": [
                                     {
