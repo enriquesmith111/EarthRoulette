@@ -1,0 +1,78 @@
+.weather-buttons button {
+    height: 4rem;
+    width: 16rem;
+    background-color: var(--light-contrast-color);
+    border-radius: 12px;
+    color: var(--button-text-color);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 24px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+@media (orientation: portrait) {
+    .weather-buttons button {
+        height: 3rem;
+        width: 11rem;
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-buttons button {
+        margin: 0rem;
+        height: 2.5rem;
+        width: 6rem;
+        font-size: 16px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-buttons button {
+        margin: 0rem;
+        height: 2.5rem;
+        width: 9rem;
+        font-size: 16px;
+    }
+}
+
+.weather-buttons button:not(:disabled):hover {
+    outline: 0;
+    background: var(--lighter-contrast-color);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.weather-buttons button:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+    }
+
+    .weather-buttons {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0rem;
+        margin-top: 1rem;
+        gap: 1rem;
+        justify-content: center;
+    }
+    @media (orientation: portrait) {
+        .weather-buttons {
+            width: 100%;
+            flex-direction: row;
+            margin: 0rem;
+        }
+    }
+    @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+        .weather-buttons{
+            margin-top: 0rem;
+        }
+    }
+    @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+        .weather-buttons{
+            margin-top: 0rem;
+        }
+    }

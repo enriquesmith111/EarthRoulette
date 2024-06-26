@@ -1,5 +1,5 @@
 import './App.css';
-import CountrySection from './sections/CountrySection';
+import CountryComponents from './sections/CountryComponents';
 import Header from './sections/Header';
 import HeroSection from './sections/HeroSection';
 import useLocalStorage from 'use-local-storage';
@@ -15,7 +15,7 @@ function App() {
         isChecked={isLight}
         handleChange={() => setIsLight(!isLight)} />
       <HeroSection />
-      <CountrySection />
+      <CountryComponents />
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.weather-and-buttons {
+    width: 100%;
+    gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+@media (orientation: portrait) {
+    .weather-and-buttons{
+        flex-direction: column;
+    }
+} 

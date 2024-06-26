@@ -1,0 +1,52 @@
+/* Right section including Weather */
+.text-weather-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+@media (orientation: portrait) {
+    .text-weather-buttons {
+    flex-direction: column-reverse;
+    }
+} 
+
+.country-text {
+    display: flex;
+    flex-direction: column;
+    height: 20rem;
+    justify-content: flex-end;
+}
+
+.country-text h1 {
+    margin-bottom: -0.3rem;
+    margin-left: 1rem;
+}
+
+.country-text p {
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 18px;
+    overflow-y: scroll;
+    width: 90%;
+    margin: 1rem;
+    text-align: justify;
+}
+
+@media (orientation: portrait) {
+    .country-text p {
+        margin: 1rem;
+        font-size: 16px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-text p {
+        font-size: 14px;
+        margin-top: -1rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-text p {
+        font-size: 14px;
+        margin-top: -1rem;
+    }
+}

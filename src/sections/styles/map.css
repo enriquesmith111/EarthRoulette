@@ -1,0 +1,36 @@
+.map {
+    border-radius: 5%;
+    height: 100%;
+    width: 100%;
+}
+
+.leaflet-container {
+    border-radius: 5%;
+}
+
+.map-container {
+    display: flex; /* Enable flexbox for alignment */
+    overflow: hidden;
+    border-radius: 5%;
+    height: 36rem;
+    width: 36rem;
+}
+@media (orientation: portrait) {
+    .map-container {
+        margin-top: -22rem;
+        height: 20rem;
+        width: 100%;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .map-container {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .map-container {
+        height: 18rem;
+        width: 18rem;
+    }
+}

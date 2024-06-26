@@ -1,4 +1,4 @@
-import './header.css'
+import './styles/header.css'
 import lightLogo from '../components/dark-logo.png'
 import darkLogo from '../components/light-logo.png'
 import useLocalStorage from 'use-local-storage'

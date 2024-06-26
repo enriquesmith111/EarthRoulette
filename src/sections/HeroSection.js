@@ -1,4 +1,4 @@
-import './hero-section.css'
+import './styles/hero-section.css'
 import EarthAnimation from '../components/Animation Earth.json'
 import EarthAnimationDark from '../components/Animation EarthDark.json'
 import Lottie from 'lottie-react'

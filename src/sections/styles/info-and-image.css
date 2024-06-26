@@ -1,0 +1,114 @@
+.country-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    overflow-x: hidden;
+}
+@media (orientation: portrait) {
+    .country-info h4 {
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-info h4 {
+        font-size: 12px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-info h4 {
+        font-size: 12px
+    }
+}
+
+.country-info img {
+    height: 30px;
+}
+@media (orientation: portrait) {
+    .country-info img {
+        height: 20px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-info img {
+        height: 20px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-info img {
+        height: 20px;
+    }
+}
+
+.country-image {
+    display: flex; /* Enable flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5%;
+    height: 36rem;
+    width: 36rem;
+}
+@media (orientation: portrait) {
+    .country-image {
+        height: 20rem;
+        width: 100%;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .country-image {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .country-image {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+
+
+.country-image img {
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+}
+
+.image-change-btn-right {
+    border-color: transparent;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.513);
+    height: 3.5rem;
+    align-items: center;
+    position: absolute; /* Position the button absolutely within the image */
+    cursor: pointer;
+    right: 3%;
+}
+
+.image-change-btn-right:hover {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.image-change-btn-left {
+    border-color: transparent;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.513);
+    height: 3.5rem;
+    align-items: center;
+    position: absolute; /* Position the button absolutely within the image */
+    cursor: pointer;
+    left: 3%;
+}
+
+.image-change-btn-left:hover {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+i {
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.813);
+}

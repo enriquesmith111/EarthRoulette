@@ -1,0 +1,179 @@
+.weather-default,
+.weather-night,
+.weather-day {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(177, 169, 169); /* Base background color */
+    transition: background-color 0.5s ease-in-out; /* Shorthand for transition properties */
+    border-radius: 18px;
+    height: 18rem;
+    width: 24em;
+}
+
+.weather-night {
+    background: rgb(58, 116, 164)}
+
+.weather-day {
+    background: rgb(47, 193, 241);
+}
+@media (orientation: portrait) {
+    .weather-day, .weather-night, .weather-default {
+        margin-left: 0rem;
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        height: 15rem;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-day, .weather-night, .weather-default {
+        gap: 1rem;
+        height: 8rem;
+        width: 16rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-day, .weather-night , .weather-default{
+        gap: 1rem;
+        height: 8rem;
+        width: 16rem;
+    }
+}
+
+.icon-capital-temp {
+    display: flex;
+    gap: 3rem;
+} 
+@media (orientation: portrait) {
+    .icon-capital-temp {
+        width: 16rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .icon-capital-temp {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-right: 1rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .icon-capital-temp {
+        margin-right: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+
+.icon-and-capital {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-and-capital h4 {
+    text-align: center;
+margin: 0px;
+}
+@media (orientation: portrait) {
+    .icon-and-capital h4 {
+        font-size: 12px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .icon-and-capital h4 {
+        margin-left: 1rem;
+        font-size: 12px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .icon-and-capital h4{
+        margin-left: 1rem;
+        font-size: 12px;
+    }
+}
+
+.location-temp {
+    margin-top: 1rem;
+}
+@media (orientation: portrait) {
+    .location-temp h1 {
+        font-size: 24px;
+        margin:0rem;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .location-temp h1 {
+        font-size: 24px;
+        margin-top: 0rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .location-temp h1 {
+        font-size: 24px;
+        margin-top: 0rem;
+    }
+}
+
+
+.weather-animation {
+    height: 8rem;
+}
+@media (orientation: portrait) {
+    .weather-animation{
+        height: 5rem;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-animation{
+        margin-left: 1rem;
+        height: 5rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-animation{
+        margin-left: 1rem;
+        height: 5rem;
+    }
+}
+
+.weather-week {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-evenly;
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .weather-week {
+        display: none;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .weather-week {
+        display: none;
+    }
+}
+
+.day-weather-of-week {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day-weather-of-week h4 {
+margin: 0rem;
+}
+
+.weather-week-animation {
+    height: 3rem;
+}
