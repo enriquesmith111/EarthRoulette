@@ -17,9 +17,9 @@ export default function TravelBot({ info }) {
 
         const options = {
             method: 'POST',
-            body: JSON.stringify({
-                mesage: JSON.stringify(data)
-            }),
+            body: {
+                message: JSON.stringify(data)
+            },
             headers: {
                 'Content-type': 'application/json'
             }
