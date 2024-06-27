@@ -32,7 +32,7 @@ exports.handler = async (event, context) => {
                     role: "system",
                     content: `You provide any travel tips and information about i might need for a specific country`,
                 },
-                { role: "user", content: `${req.body.message}` },
+                { role: "user", content: `${req.body.data}` },
                 ],
                 max_tokens: 180,
             }),

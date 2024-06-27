@@ -10,29 +10,28 @@ export default function TravelBot({ info }) {
 
     const getMessage = async () => {
         const data = {
-            country: `${country}`,
-            message: `${value}`,
+            country: country,
+            message: value,
         };
 
         const options = {
             method: 'POST',
-            body: JSON.stringify({
-                message: data
-            }),
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            data: JSON.stringify(data),
         };
 
         try {
-            const response = await axios.post('https://earthroulette.net/.netlify/functions/botreply', options);
-            const responseData = await response.data;
-            setAiReply(responseData?.choices[0].message);
+            const response = await axios('https://earthroulette.net/.netlify/functions/botreply', options);
+            const responseData = response.data;
+            setAiReply(responseData?.choices[0]?.message);
             console.log(responseData);
         } catch (error) {
             console.error('Error making API call:', error);
         }
-    }
+    };
 
     return (
         <div className="travelbot-container">
