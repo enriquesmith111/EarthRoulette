@@ -54,7 +54,7 @@ export default function CountrySection() {
                 <div className='section'>
                     <div className='container'>
                         <Map info={info} loading={loading} />
-                        <TravelBot />
+                        <TravelBot info={info} />
                     </div>
                 </div>
             )}

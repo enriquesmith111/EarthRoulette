@@ -1,14 +1,20 @@
+import axios from 'axios';
 import '../sections/styles/travelbot.css'
+import { useState } from 'react';
 
 export default function TravelBot({ info }) {
-    // const country = info?.country?.name?.common
+    const [value, setValue] = useState('');
+    const [aiReply, setAiReply] = useState()
+
+    const country = info?.country?.name?.common
+    console.log(aiReply, country)
 
     const getMessage = async () => {
 
         const options = {
             method: 'POST',
             body: JSON.stringify({
-                mesage: 'restaurants'
+                mesage: `${value}, ${country}`
             }),
             headers: {
                 'Content-type': 'application/json'
@@ -16,8 +22,9 @@ export default function TravelBot({ info }) {
         }
 
         try {
-            const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
-            const data = response.json()
+            const response = await axios.get('https://earthroulette.net/.netlify/functions/botreply', options);
+            const data = await response.data
+            setAiReply(data?.choices[0].message)
             console.log(data)
         } catch (error) {
             console.log(error)
@@ -28,7 +35,7 @@ export default function TravelBot({ info }) {
         <div className="travelbot-container">
             <h1>travelbot</h1>
             <div className='travelbot-input'>
-                <input></input>
+                <input value={value} onChange={(e) => setValue(e.target.value)}></input>
                 <button onClick={getMessage}>Enter</button>
             </div>
         </div>

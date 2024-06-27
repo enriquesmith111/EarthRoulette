@@ -30,9 +30,9 @@ exports.handler = async (event, context) => {
                 model: 'gpt-3.5-turbo',
                 messages: [{
                     role: "system",
-                    content: `You provide any travel tips and information about Spain `,
+                    content: `You provide any travel tips and information about i might need for a specific country`,
                 },
-                { role: "user", content: `best restaurants` },
+                { role: "user", content: `${req.body.message}` },
                 ],
                 max_tokens: 180,
             }),
