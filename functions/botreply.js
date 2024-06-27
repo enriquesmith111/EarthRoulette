@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 exports.handler = async (event, context) => {
-    const req = event; // Access the request object from the event
+    const req = JSON.parse(event.body);; // Access the request object from the event
     const res = {
         statusCode: 200, // Set default status code
         headers: {
@@ -22,6 +22,9 @@ exports.handler = async (event, context) => {
 
     try {
         const message = req.body.message;
+        if (!message) {
+            throw new Error('Message not provided');
+        }
         // OpenAI request options
         const openAIRequest = {
             method: 'POST',
