@@ -80,6 +80,7 @@ body {
 
 .container {
   display: flex;
+  gap: 1rem;
 }
 @media (orientation: portrait) {
   .container {

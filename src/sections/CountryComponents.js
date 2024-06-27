@@ -10,6 +10,7 @@ import Weather from './Weather';
 import SpinButton from './SpinButton';
 import SearchButton from './SearchButton';
 import Map from './Map';
+import TravelBot from './TravelBot'
 import axios from 'axios'
 
 export default function CountrySection() {
@@ -49,11 +50,14 @@ export default function CountrySection() {
                     </div>
                 </div>
             </div >
-            <div className='section'>
-                <div className='container'>
-                    <Map info={info} loading={loading} />
+            {info && (
+                <div className='section'>
+                    <div className='container'>
+                        <Map info={info} loading={loading} />
+                        <TravelBot />
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }

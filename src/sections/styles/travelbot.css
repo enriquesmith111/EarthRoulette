@@ -1,0 +1,36 @@
+.travelbot-container {
+    margin-left: 1rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5%;
+    height: 36rem;
+    width: 42rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.travelbot-input {
+    gap: 0.5rem;
+    border-radius: 5px;
+    margin: 2rem;
+    display: flex;
+    flex-direction: row;
+    height: 2rem;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.travelbot-input input {
+    height: 100%;
+    width: inherit;
+}
+
+.travelbot-input button {
+    padding: 0px;
+    width: 20%;
+    height: 118%;
+}
