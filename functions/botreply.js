@@ -37,6 +37,7 @@ exports.handler = async (event, context) => {
                 max_tokens: 180,
             }),
         };
+        console.log(req.body.message)
 
         const response = await fetch('https://api.openai.com/v1/chat/completions', openAIRequest).then(res => res.json());
         res.body = JSON.stringify(response);

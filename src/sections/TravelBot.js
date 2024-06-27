@@ -9,7 +9,7 @@ export default function TravelBot({ info }) {
     const country = info?.country?.name?.common
     console.log(aiReply, country)
 
-    const getMessage = async () => {
+    const getMessage = async (country) => {
 
         const options = {
             method: 'POST',
