@@ -22,7 +22,7 @@ export default function TravelBot({ info }) {
         }
 
         try {
-            const response = await axios.get('https://earthroulette.net/.netlify/functions/botreply', options);
+            const response = await axios.post('https://earthroulette.net/.netlify/functions/botreply', options);
             const data = await response.data
             setAiReply(data?.choices[0].message)
             console.log(data)
