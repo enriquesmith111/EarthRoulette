@@ -25,11 +25,7 @@ export default function TravelBot({ info }) {
         };
 
         try {
-            const response = await axios.post('https://earthroulette.net/.netlify/functions/botreply', data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await axios.post('https://earthroulette.net/.netlify/functions/botreply', options);
             const responseData = await response.data;
             setAiReply(responseData?.choices[0].message);
             console.log(responseData);
