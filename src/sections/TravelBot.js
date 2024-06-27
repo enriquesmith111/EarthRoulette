@@ -1,4 +1,3 @@
-import axios from 'axios';
 import '../sections/styles/travelbot.css'
 import { useState } from 'react';
 
@@ -22,8 +21,8 @@ export default function TravelBot({ info }) {
         }
 
         try {
-            const response = await axios.post('https://earthroulette.net/.netlify/functions/botreply', options);
-            const data = await response.data
+            const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
+            const data = await response.json()
             setAiReply(data?.choices[0].message)
             console.log(data)
         } catch (error) {
