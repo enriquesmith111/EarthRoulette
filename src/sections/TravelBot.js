@@ -1,7 +1,7 @@
 import '../sections/styles/travelbot.css'
 
 export default function TravelBot({ info }) {
-    const country = info?.country?.name?.common
+    // const country = info?.country?.name?.common
 
     const getMessage = async () => {
 
