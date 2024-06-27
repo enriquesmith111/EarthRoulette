@@ -151,7 +151,7 @@ exports.handler = async (event, context) => {
             aiJSON: aiJsonResponse,
             boundary: geoapifyResponse,
         };
-
+        console.log(randomCountry.name.common)
         res.body = JSON.stringify(responseData);
 
     } catch (error) {
