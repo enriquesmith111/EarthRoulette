@@ -20,7 +20,9 @@ export default function TravelBot({ info }) {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            data: JSON.stringify(data),
+            body: JSON.stringify({
+                message: data,
+            })
         };
 
         try {
