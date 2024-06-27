@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const axios = require('axios');
+// const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -35,12 +35,12 @@ exports.handler = async (event, context) => {
                     role: "system",
                     content: `You provide any travel tips and information about i might need for a specific country`,
                 },
-                { role: "user", content: `${message?.country}: ${message?.message}` },
+                { role: "user", content: `${message}` },
                 ],
                 max_tokens: 180,
             }),
         };
-        console.log(req.body.message)
+        console.log(message)
 
         const response = await fetch('https://api.openai.com/v1/chat/completions', openAIRequest).then(res => res.json());
         res.body = JSON.stringify(response);

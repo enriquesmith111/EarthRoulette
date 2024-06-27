@@ -1,4 +1,3 @@
-import axios from 'axios';
 import '../sections/styles/travelbot.css'
 import { useState } from 'react';
 
@@ -9,22 +8,20 @@ export default function TravelBot({ info }) {
     console.log(aiReply, country)
 
     const getMessage = async () => {
-        const data = {
-            country: country,
-            message: value,
-        };
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                message: `${country}: ${value}`
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
 
         try {
-            const response = await axios.post(
-                'https://earthroulette.net/.netlify/functions/botreply', data,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    }
-                }
-            );
-            const responseData = response.data;
+            const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
+            const responseData = await response.json();
             setAiReply(responseData?.choices[0]?.message);
             console.log(responseData);
         } catch (error) {
