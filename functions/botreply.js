@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
+app.use(bodyParser.json());
 
 app.use(cors());
 
@@ -19,6 +21,7 @@ exports.handler = async (event, context) => {
     };
 
     try {
+        const message = req.body.message;
         // OpenAI request options
         const openAIRequest = {
             method: 'POST',
@@ -32,7 +35,7 @@ exports.handler = async (event, context) => {
                     role: "system",
                     content: `You provide any travel tips and information about i might need for a specific country`,
                 },
-                { role: "user", content: `${req.body.message}` },
+                { role: "user", content: `${message.country}: ${message.message}` },
                 ],
                 max_tokens: 180,
             }),

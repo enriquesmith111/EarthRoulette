@@ -14,19 +14,16 @@ export default function TravelBot({ info }) {
             message: value,
         };
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify({
-                message: data,
-            })
-        };
-
         try {
-            const response = await axios('https://earthroulette.net/.netlify/functions/botreply', options);
+            const response = await axios.post(
+                'https://earthroulette.net/.netlify/functions/botreply', data,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }
+            );
             const responseData = response.data;
             setAiReply(responseData?.choices[0]?.message);
             console.log(responseData);
@@ -34,6 +31,7 @@ export default function TravelBot({ info }) {
             console.error('Error making API call:', error);
         }
     };
+
 
     return (
         <div className="travelbot-container">
