@@ -23,8 +23,14 @@
     height: 30px;
 }
 
-.travelbot-container p {
+.ai-reply-container {
     margin: 2rem;
+}
+
+.travelbot-container p {
+    /* padding: 4rem; */
+    width: 100%;
+    /* margin: 2rem; */
     white-space: pre;
 }
 
