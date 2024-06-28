@@ -38,6 +38,8 @@ export default function TravelBot({ info }) {
         }
     };
 
+    console.log(error)
+
     return (
         <div className="travelbot-container">
             <h1>travelbot</h1>
