@@ -24,7 +24,11 @@
 }
 
 .ai-reply-container {
-    margin: 2rem;
+    overflow: scroll;
+    height: 60%;
+    margin-right: 2rem;
+    margin-left: 2rem;
+
 }
 
 .travelbot-container p {

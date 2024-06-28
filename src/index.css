@@ -131,6 +131,11 @@ h2 {
   
 }
 
+h3 {
+  color: var(--light-contrast-color);
+  font-family: 'General Sans', sans-serif;
+}
+
 h4 {
   color: var(--light-contrast-color);
   font-family: 'General Sans', sans-serif;
