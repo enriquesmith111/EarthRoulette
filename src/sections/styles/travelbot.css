@@ -25,6 +25,7 @@
 
 .travelbot-container p {
     margin: 2rem;
+    white-space: pre;
 }
 
 .travelbot-input {
