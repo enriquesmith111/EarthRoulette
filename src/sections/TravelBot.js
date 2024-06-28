@@ -29,6 +29,7 @@ export default function TravelBot({ info }) {
             const content = data?.choices[0]?.message?.content
             setAiReply(content);
             setConversationHistory([{ userQuestion: value, aiReply: content }, ...conversationHistory,]);
+            setValue('');
             setLoading(false)
 
         } catch (error) {
@@ -43,7 +44,7 @@ export default function TravelBot({ info }) {
         }
     }, [country]);
 
-    console.log(error)
+    console.log(error, aiReply)
 
     return (
         <div className={`travelbot-container ${loadingClass}`}>
