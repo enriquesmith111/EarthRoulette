@@ -31,6 +31,8 @@ export default function TravelBot({ info }) {
         }
     };
 
+    console.log(error)
+
     return (
         <div className="travelbot-container">
             <h2>Travelbot</h2>
