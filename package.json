@@ -28,7 +28,8 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "start:backend": "nodemon functions/info.js",
+    "start:backend-info": "nodemon functions/info.js",
+    "start:backend-reply": "nodemon functions/botreply.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

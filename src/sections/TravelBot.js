@@ -15,20 +15,15 @@ export default function TravelBot({ info }) {
             }),
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
             }
         }
 
         try {
             const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
-
-            if (!response.ok) {
-                throw new Error(`Server error: ${response.status} ${response.statusText}`);
-            }
-
-            const responseData = await response.json();
-            setAiReply(responseData?.choices[0]?.message);
-            console.log(responseData);
+            // const response = await fetch('http://localhost:8000/reply', options)
+            const data = await response.json();
+            const content = data?.choices[0]?.message?.content
+            setAiReply(content)
         } catch (error) {
             console.error('Error making API call:', error);
             setError(error.message);  // Set error message state
@@ -39,11 +34,11 @@ export default function TravelBot({ info }) {
     console.log(aiReply, country)
     return (
         <div className="travelbot-container">
-            <h1>travelbot</h1>
+            <h2>travelbot</h2>
             <p className="ai-reply">{aiReply?.content}</p>
             <div className='travelbot-input'>
-                <input value={value} onChange={(e) => setValue(e.target.value)}></input>
-                <button onClick={getMessage}>Enter</button>
+                <input className='input' value={value} onChange={(e) => setValue(e.target.value)}></input>
+                <i onClick={getMessage} class="fa-solid fa-paper-plane"></i>
             </div>
         </div>
     )
