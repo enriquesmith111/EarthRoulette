@@ -1,7 +1,8 @@
 import '../sections/styles/travelbot.css'
 import { useEffect, useState } from 'react';
 
-export default function TravelBot({ info }) {
+export default function TravelBot({ info, loading }) {
+    const loadingClass = loading ? 'loading' : '';
     const [value, setValue] = useState('');
     const [conversationHistory, setConversationHistory] = useState([]);
     const [aiReply, setAiReply] = useState();
@@ -40,7 +41,7 @@ export default function TravelBot({ info }) {
     console.log(error)
 
     return (
-        <div className="travelbot-container">
+        <div className={`travelbot-container ${loadingClass}`}>
             <h2>Travelbot</h2>
             <div className='ai-reply-container'>
                 {conversationHistory.map((message, index) => (
