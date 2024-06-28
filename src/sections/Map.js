@@ -85,7 +85,7 @@ const MarkerList = ({ markers }) => {
     return markers?.locations.map((marker) => (
         <>
             {markers?.locations && (
-                <Marker key={marker.name} position={[marker.latitude, marker.longitude]} icon={customIcon}>
+                <Marker key={marker.latitude} position={[marker.latitude, marker.longitude]} icon={customIcon}>
                     <Popup>
                         <a href={`https://www.google.com/search?q=${marker.name}`}
                             target="_blank"
