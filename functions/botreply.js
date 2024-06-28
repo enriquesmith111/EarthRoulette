@@ -40,7 +40,7 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
                 messages: [
-                    { role: "system", content: `You provide quick and concise travel tips and information for a specific country` },
+                    { role: "system", content: `You provide quick and concise travel tips and information for a specific country and output the message with the necessary <br> tags for spacing` },
                     { role: "user", content: message },
                 ],
                 max_tokens: 150,
