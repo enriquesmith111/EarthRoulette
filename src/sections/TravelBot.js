@@ -35,7 +35,7 @@ export default function TravelBot({ info }) {
     return (
         <div className="travelbot-container">
             <h2>Travelbot</h2>
-            <p className="ai-reply">{aiReply?.content}</p>
+            <p className="ai-reply">{aiReply}</p>
             <div className='travelbot-input'>
                 <input className='input' value={value} onChange={(e) => setValue(e.target.value)}></input>
                 <i onClick={getMessage} class="fa-solid fa-paper-plane"></i>
