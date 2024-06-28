@@ -76,3 +76,13 @@
 .travelbot-input i:hover {
     color: rgb(117, 117, 117);  /* Adjust hover color if needed */
 }
+
+.loading-response {
+    animation: flash-background 0.8s alternate infinite;
+    z-index: 2; /* Animation properties */
+}
+
+@keyframes flash-background {
+    from { background-color: rgb(67, 67, 67) } /* Start from white */
+    to { background-color: rgb(192, 192, 192); } /* Animate to lightgrey */
+  }
