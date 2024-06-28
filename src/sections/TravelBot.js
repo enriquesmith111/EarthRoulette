@@ -1,5 +1,4 @@
 import '../sections/styles/travelbot.css'
-import icon from '../components/chat-gpt.png'
 import { useState } from 'react';
 
 export default function TravelBot({ info }) {
