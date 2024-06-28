@@ -6,7 +6,6 @@ export default function TravelBot({ info }) {
     const [aiReply, setAiReply] = useState();
     const [error, setError] = useState(null);  // Capture any error messages
     const country = info?.country?.name?.common
-    console.log(aiReply, country)
 
     const getMessage = async () => {
         const options = {
@@ -19,8 +18,6 @@ export default function TravelBot({ info }) {
                 'Access-Control-Allow-Origin': '*'
             }
         }
-
-
 
         try {
             const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
@@ -38,11 +35,12 @@ export default function TravelBot({ info }) {
         }
     };
 
-    console.log(error)
-
+    console.log(error);
+    console.log(aiReply, country)
     return (
         <div className="travelbot-container">
             <h1>travelbot</h1>
+            <p className="ai-reply">{aiReply?.content}</p>
             <div className='travelbot-input'>
                 <input value={value} onChange={(e) => setValue(e.target.value)}></input>
                 <button onClick={getMessage}>Enter</button>
