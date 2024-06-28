@@ -23,15 +23,15 @@ export default function TravelBot({ info }) {
             // const response = await fetch('http://localhost:8000/reply', options)
             const data = await response.json();
             const content = data?.choices[0]?.message?.content
-            setAiReply(content)
+            const formattedReply = content.replace(/\n/g, "<br />")
+            setAiReply(formattedReply)
+
         } catch (error) {
             console.error('Error making API call:', error);
             setError(error.message);  // Set error message state
         }
     };
 
-    console.log(error);
-    console.log(aiReply, country)
     return (
         <div className="travelbot-container">
             <h2>Travelbot</h2>
