@@ -1,4 +1,5 @@
 import '../sections/styles/travelbot.css'
+import icon from '../components/chat-gpt.png'
 import { useState } from 'react';
 
 export default function TravelBot({ info }) {
@@ -34,7 +35,7 @@ export default function TravelBot({ info }) {
     console.log(aiReply, country)
     return (
         <div className="travelbot-container">
-            <h2>travelbot</h2>
+            <h2>Travelbot</h2>
             <p className="ai-reply">{aiReply?.content}</p>
             <div className='travelbot-input'>
                 <input className='input' value={value} onChange={(e) => setValue(e.target.value)}></input>

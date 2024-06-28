@@ -126,7 +126,7 @@ h1 {
 
 h2 {
   font-size: 32px;
-  color: var(--text-color);
+  color: var(--light-contrast-color);
   font-family: 'General Sans', sans-serif;
   
 }
