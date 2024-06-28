@@ -1,8 +1,9 @@
 import '../sections/styles/travelbot.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function TravelBot({ info }) {
     const [value, setValue] = useState('');
+    const [conversationHistory, setConversationHistory] = useState([]);
     const [aiReply, setAiReply] = useState();
     const [error, setError] = useState(null);  // Capture any error messages
     const country = info?.country?.name?.common
@@ -23,7 +24,8 @@ export default function TravelBot({ info }) {
             // const response = await fetch('http://localhost:8000/reply', options)
             const data = await response.json();
             const content = data?.choices[0]?.message?.content
-            setAiReply(content)
+            setAiReply(content);
+            setConversationHistory([...conversationHistory, { userQuestion: value, aiReply: content }]);
 
         } catch (error) {
             console.error('Error making API call:', error);
@@ -31,13 +33,22 @@ export default function TravelBot({ info }) {
         }
     };
 
+    useEffect(() => {
+
+    }, [aiReply])
+
     console.log(error)
 
     return (
         <div className="travelbot-container">
             <h2>Travelbot</h2>
             <div className='ai-reply-container'>
-                <p className="ai-reply">{aiReply}</p>
+                {conversationHistory.map((message, index) => (
+                    <div key={index} className="message-item">
+                        <h3 className="user-message">{message.userQuestion}</h3>
+                        <p className="ai-message">{message.aiReply}</p>
+                    </div>
+                ))}
             </div>
             <div className='travelbot-input'>
                 <input className='input' value={value} onChange={(e) => setValue(e.target.value)}></input>
