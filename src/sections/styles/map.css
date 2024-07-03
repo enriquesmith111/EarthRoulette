@@ -17,7 +17,7 @@
 }
 @media (orientation: portrait) {
     .map-container {
-        margin-top: -22rem;
+        margin-top: 6rem;
         height: 20rem;
         width: 100%;
     }

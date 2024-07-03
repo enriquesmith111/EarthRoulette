@@ -11,6 +11,25 @@
     flex-direction: column;
     justify-content: space-between;
 }
+@media (orientation: portrait) {
+    .travelbot-container {
+        margin-top: 6rem;
+        height: 20rem;
+        width: 100%;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .travelbot-container {
+        height: 18rem;
+        width: 18rem;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .travelbot-container {
+        height: 18rem;
+        width: 18rem;
+    }
+}
 
 .travel-bot-title {
     gap: 1rem;

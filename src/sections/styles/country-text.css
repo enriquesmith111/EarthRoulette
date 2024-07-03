@@ -16,6 +16,11 @@
     height: 20rem;
     justify-content: flex-end;
 }
+@media (orientation: portrait) {
+    .country-text {
+        height: 26rem;
+    }
+} 
 
 .country-text h1 {
     margin-bottom: -0.3rem;
