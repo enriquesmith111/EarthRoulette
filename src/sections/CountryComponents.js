@@ -25,6 +25,7 @@ export default function CountrySection() {
             // const response = await fetch(`http://localhost:8001/info`);
             const data = await response.json();
             setInfo(data)
+            console.log(info)
             setLoading(null)
             console.log(response?.data)
 
