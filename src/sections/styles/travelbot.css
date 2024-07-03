@@ -13,9 +13,9 @@
 }
 @media (orientation: portrait) {
     .travelbot-container {
-        margin-top: 6rem;
-        height: 20rem;
+        height: 24rem;
         width: 100%;
+        margin-left: 0rem;
     }
 } 
 @media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
