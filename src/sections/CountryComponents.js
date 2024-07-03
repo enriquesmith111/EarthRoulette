@@ -17,7 +17,6 @@ export default function CountrySection() {
     const [error, setError] = useState(null);
     const [info, setInfo] = useState(null);
     const [loading, setLoading] = useState(null);
-    console.log(info)
 
     const handleSpin = async () => {
         try {
@@ -27,8 +26,6 @@ export default function CountrySection() {
             const data = await response.data;
             setInfo(data)
             setLoading(null)
-            console.log(response?.data)
-
         } catch (error) {
             setError(error.message);
         }

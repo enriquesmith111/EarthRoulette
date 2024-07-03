@@ -18,7 +18,7 @@ export default function Map({ info, loading }) {
     useEffect(() => {
         if (info?.aiJSON) {
             const markers = info?.aiJSON?.choices[0]?.message?.content;
-            console.log(markers)
+            // console.log(markers)
             const JSONMarker = JSON.parse(markers);
             setMarkers(JSONMarker);
         }
@@ -73,7 +73,7 @@ export default function Map({ info, loading }) {
 }
 
 const MarkerList = ({ markers }) => {
-    console.log(markers)
+    // console.log(markers)
 
     const customIcon = L.icon({
         iconUrl: MapPin, // Replace with your PNG path

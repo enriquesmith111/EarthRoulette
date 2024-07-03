@@ -43,7 +43,7 @@ export default function TravelBot({ info }) {
         }
     }, [country]);
 
-    console.log(conversationHistory)
+    // console.log(conversationHistory)
 
     return (
         <div className='travelbot-container'>
