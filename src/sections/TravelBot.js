@@ -7,10 +7,8 @@ export default function TravelBot({ info }) {
     const [value, setValue] = useState('');
     const [conversationHistory, setConversationHistory] = useState([]);
     const [aiReply, setAiReply] = useState();
-    const [error, setError] = useState(null);  // Capture any error messages
     const country = info?.country?.name?.common
 
-    console.log(aiReply, error)
     const getMessage = async () => {
         const options = {
             method: "POST",
@@ -36,7 +34,6 @@ export default function TravelBot({ info }) {
 
         } catch (error) {
             console.error('Error making API call:', error);
-            setError(error.message);  // Set error message state
         }
     };
 
@@ -52,7 +49,7 @@ export default function TravelBot({ info }) {
         <div className='travelbot-container'>
             <h2>Travelbot</h2>
             <div className='ai-reply-container'>
-                {conversationHistory.map((message, index) => (
+                {aiReply && conversationHistory.map((message, index) => (
                     <div key={index} className="message-item">
                         <h3 className='user-message'>{message.userQuestion}</h3>
                         <p className="ai-message">{message.aiReply}</p>
