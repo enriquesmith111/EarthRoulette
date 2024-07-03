@@ -1,5 +1,5 @@
 .header {
-    z-index: 0;
+    z-index: 2;
     background-color: transparent;
     background-blend-mode: exclusion;
     transition: background-color 0.25s ease-in-out;
