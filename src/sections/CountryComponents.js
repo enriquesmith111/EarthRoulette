@@ -22,7 +22,9 @@ export default function CountrySection() {
         try {
             setLoading(true)
             const response = await axios.get(`https://earthroulette.net/.netlify/functions/info`);
-            setInfo(response?.data)
+            // const response = await fetch(`http://localhost:8001/info`);
+            const data = await response.json();
+            setInfo(data)
             setLoading(null)
             console.log(response?.data)
 

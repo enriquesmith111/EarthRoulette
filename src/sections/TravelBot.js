@@ -10,6 +10,7 @@ export default function TravelBot({ info }) {
     const [error, setError] = useState(null);  // Capture any error messages
     const country = info?.country?.name?.common
 
+    console.log(aiReply, error)
     const getMessage = async () => {
         const options = {
             method: "POST",
