@@ -23,8 +23,8 @@ export default function TravelBot({ info }) {
 
         try {
             setLoadingResponse(true)
-            const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
-            // const response = await fetch('http://localhost:8000/reply', options)
+            // const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
+            const response = await fetch('http://localhost:8000/reply', options)
             const data = await response.json();
             const content = data?.choices[0]?.message?.content
             setAiReply(content);
