@@ -35,7 +35,7 @@ export default function CountrySection() {
 
     return (
         <>
-            <div className='section'>
+            <div id='country' className='section'>
                 <div className='container' id='country-container'>
                     <InfoAndImage info={info} loading={loading} error={error} />
                     <div className='text-weather-buttons'>

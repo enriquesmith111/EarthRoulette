@@ -46,7 +46,7 @@ export default function TravelBot({ info }) {
     // console.log(conversationHistory)
 
     return (
-        <div className='travelbot-container'>
+        <div id='travelbot' className='travelbot-container'>
             <h2>Travelbot</h2>
             <div className='ai-reply-container'>
                 {aiReply && conversationHistory.map((message, index) => (

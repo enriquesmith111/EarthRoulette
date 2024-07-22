@@ -7,29 +7,29 @@ export default function Footer() {
             <div className='footer-elements'>
                 <div className='footer-icons'>
                     <h3>Links</h3>
-                    <div className='footer-icon'>
+                    <a href="mailto:enriquesmith111@gmail.com" target="_blank" className='footer-icon' rel="noreferrer">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <p>Email</p>
-                    </div>
-                    <div className='footer-icon'>
+                    </a>
+                    <a href="https://www.linkedin.com/in/enrique-smith-dean/" target="_blank" className='footer-icon' rel="noreferrer">
                         <i class="devicon-linkedin-plain" aria-hidden="true"></i>
                         <p>Linkedin</p>
-                    </div>
-                    <div className='footer-icon'>
+                    </a>
+                    <a href="https://github.com/enriquesmith111" target="_blank" className='footer-icon' rel="noreferrer">
                         <i class="devicon-github-original" aria-hidden="true"></i>
                         <p>Github</p>
-                    </div>
-                    <div className='footer-icon'>
+                    </a>
+                    <a href="https://enriquesmith111.github.io/portfolio-v2/" target="_blank" className='footer-icon' rel="noreferrer">
                         <i class="fa-solid fa-up-right-from-square"></i>
                         <p>Portfolio</p>
-                    </div>
+                    </a>
                 </div>
                 <div className='footer-links'>
                     <h3>Explore</h3>
-                    <p>Home</p>
-                    <p>Country</p>
-                    <p>Map</p>
-                    <p>Travelbot</p>
+                    <p><a href="#home">Home</a></p>
+                    <p><a href="#country">Country</a></p>
+                    <p><a href="#map">Map</a></p>
+                    <p><a href="#travelbot">TravelBot</a></p>
                 </div>
             </div>
         </div>

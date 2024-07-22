@@ -54,7 +54,7 @@ export default function Map({ info, loading }) {
     };
 
     return (
-        <div className={info ? 'map-container' : ''}>
+        <div id='map' className={info ? 'map-container' : ''}>
             {polygonData && (
                 <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '100%' }}>
                     {(

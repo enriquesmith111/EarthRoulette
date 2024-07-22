@@ -9,7 +9,7 @@ export default function HeroSection() {
     const [isLight] = useLocalStorage('isLight', preference);
 
     return (
-        <div className='section'>
+        <div id='home' className='section'>
             <div className='container'>
                 <Lottie
                     className='earth-animation'

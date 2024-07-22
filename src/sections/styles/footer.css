@@ -25,12 +25,18 @@
     align-items: center;
     gap: 1rem;
     width: 100%;
+    text-decoration: none;
 }
 
 .footer-links {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
+}
+
+.footer-links a {
+    text-decoration: none;
 }
 
 i {
