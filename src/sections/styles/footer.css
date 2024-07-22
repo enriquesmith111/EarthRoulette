@@ -36,6 +36,7 @@
 }
 
 .footer-links a {
+    color: inherit;  /* Inherits the text color from the parent element */
     text-decoration: none;
 }
 

@@ -6,6 +6,7 @@
   --night-gradient: linear-gradient(to top, #7e83ab, #413e61);
   --day-gradient: linear-gradient(to top, #f0cc6f, #dda91a);
   --background-color: rgb(186, 197, 200, 0.80);
+  --popup-background-color: rgb(186, 197, 200); 
   --footer-background-color: rgba(128, 137, 139, 0.8);
   --darker-contrast-color: rgb(240, 137, 52);
   --dark-contrast-color: rgb(255, 203, 161);
@@ -21,6 +22,7 @@
   --night-gradient: linear-gradient(to top, #7e83ab, #413e61);
   --day-gradient: linear-gradient(to top, #f0cc6f, #dda91a);
   --background-color: rgb(17, 17, 17, 0.90);
+  --popup-background-color: rgb(17, 17, 17);
   --footer-background-color: rgba(0, 0, 0, 0.9);
   --darker-contrast-color: rgb(3, 174, 210);
   --dark-contrast-color: rgb(104, 210, 232);
