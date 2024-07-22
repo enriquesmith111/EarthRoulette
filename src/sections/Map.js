@@ -56,7 +56,7 @@ export default function Map({ info, loading }) {
     return (
         <div className={info ? 'map-container' : ''}>
             {polygonData && (
-                <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '36rem' }}>
+                <MapContainer center={[lat, lng]} zoom={4.5} scrollWheelZoom={false} style={{ height: '36rem', width: '100%' }}>
                     {(
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

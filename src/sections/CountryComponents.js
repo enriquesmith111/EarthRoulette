@@ -11,6 +11,7 @@ import SpinButton from './SpinButton';
 import SearchButton from './SearchButton';
 import Map from './Map';
 import TravelBot from './TravelBot'
+import Footer from './Footer'
 import axios from 'axios'
 
 export default function CountrySection() {
@@ -59,6 +60,7 @@ export default function CountrySection() {
                     </div>
                 </div>
             )}
+            <Footer />
         </>
     )
 }
