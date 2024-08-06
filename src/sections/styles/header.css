@@ -54,6 +54,10 @@
     filter: blur(0.5px)
 }
 
+a {
+    text-decoration: none;
+}
+
 .header-about {
     text-decoration: none;
     color: var(--text-color); /* Or specify your desired color */
