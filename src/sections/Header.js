@@ -19,6 +19,7 @@ export default function Header() {
                 alt='paper-airplane-png'>
             </img>
 
+            <a href='#footer'><p className='header-about'>About</p></a>
 
             <Toggle
                 isChecked={isLight}

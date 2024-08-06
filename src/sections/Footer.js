@@ -2,8 +2,8 @@ import './styles/footer.css'
 
 export default function Footer() {
     return (
-        <div className="section-footer">
-            <h2>Earth Roulette by Enrique</h2>
+        <div id='footer' className="section-footer">
+            <h2>Earth Roulette</h2>
             <div className='footer-elements'>
                 <div className='footer-icons'>
                     <h3>Links</h3>
@@ -31,7 +31,13 @@ export default function Footer() {
                     <p><a href="#map">Map</a></p>
                     <p><a href="#travelbot">TravelBot</a></p>
                 </div>
+
+                <div className='footer-about'>
+                    <h3>About</h3>
+                    <p>This personal React project was built to enhance my web development skills while combining my passion for travel. I leveraged React, Node.js, and JavaScript to create a dynamic application that fetches data from various RESTful APIs. By incorporating weather information, map locations and information, an AI travel bot and much more. I aimed to provide a comprehensive travel experience. Thank you for taking the time to explore my website. Please feel free to contact me if you have any questions or suggestions for improvements.</p>
+                </div>
             </div>
+            <p>2024 Earth Roulette. All Rights Reserved. by Enrique Smith Dean.</p>
         </div>
     )
 }

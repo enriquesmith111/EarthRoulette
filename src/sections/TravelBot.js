@@ -23,8 +23,8 @@ export default function TravelBot({ info }) {
 
         try {
             setLoadingResponse(true)
-            // const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
-            const response = await fetch('http://localhost:8000/reply', options)
+            const response = await fetch('https://earthroulette.net/.netlify/functions/botreply', options);
+            // const response = await fetch('http://localhost:8000/reply', options)
             const data = await response.json();
             const content = data?.choices[0]?.message?.content
             setAiReply(content);
@@ -57,7 +57,17 @@ export default function TravelBot({ info }) {
                 ))}
             </div>
             <div className='travelbot-input'>
-                <input className={`input ${loadingClassResponse}`} value={value} onChange={(e) => setValue(e.target.value)} placeholder="ask Travelbot about your trip"></input>
+                <input
+                    className={`input ${loadingClassResponse}`}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder="ask Travelbot about your trip"
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                            getMessage(); // Call your function to send the message
+                        }
+                    }}
+                />
                 <i onClick={getMessage} class={`fa-solid fa-paper-plane ${loadingClassResponse}`}></i>
             </div>
         </div>

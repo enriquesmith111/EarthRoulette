@@ -28,6 +28,7 @@
 
 .header img {
     margin-left: 2rem;
+    margin-right: 2rem;
     height: 4rem;
 }
 @media (orientation: portrait) {
@@ -51,6 +52,18 @@
 
 .header img:hover {
     filter: blur(0.5px)
+}
+
+.header-about {
+    text-decoration: none;
+    color: var(--text-color); /* Or specify your desired color */
+}
+
+.header-about:hover,
+.header-about:focus,
+.header-about:active {
+    text-decoration: none;
+    color: var(--text-color); /* Or specify a hover color */
 }
 
 

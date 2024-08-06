@@ -45,3 +45,14 @@ i {
     color: var(--text-color);
 }
 
+.footer-about {
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-about p {
+    text-align: justify;
+
+}
