@@ -37,7 +37,7 @@ export default function Footer() {
                     <p>This personal React project was built to enhance my web development skills while combining my passion for travel. I leveraged React, Node.js, and JavaScript to create a dynamic application that fetches data from various RESTful APIs. By incorporating weather information, map locations and information, an AI travel bot and much more. I aimed to provide a comprehensive travel experience. Thank you for taking the time to explore my website. Please feel free to contact me if you have any questions or suggestions for improvements.</p>
                 </div>
             </div>
-            <p>2024 Earth Roulette. All Rights Reserved. by Enrique Smith Dean.</p>
+            <p className='footer-rights'>2024 Earth Roulette. All Rights Reserved. by Enrique Smith Dean.</p>
         </div>
     )
 }

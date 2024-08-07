@@ -54,5 +54,28 @@ i {
 
 .footer-about p {
     text-align: justify;
+    height: 170px;
+    overflow-y: scroll;
+}
+@media (orientation: portrait) {
+    .footer-about p {
+    overflow-y: scroll;
+    height: 170px;
+    }
+} 
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+    .footer-about p {
+        overflow-y: scroll;
+        height: 170px;
+    }
+}
+@media (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) and (pointer: coarse) {
+    .footer-about p {
+        overflow-y: scroll;
+        height: 170px;
+    }
+}
 
+.footer-rights p {
+    color: rgb(255, 255, 255);
 }
